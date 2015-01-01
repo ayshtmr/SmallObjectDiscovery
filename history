@@ -1,0 +1,1000 @@
+  904  ./mainsuperpixelling 
+  905  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  906  ./mainsuperpixelling 
+  907  cd Doubt_Line/
+  908  ls
+  909  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+  910  ./per 
+  911  cd line_
+  912  cd line_img/
+  913  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+  914  ./per 
+  915  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+  916  ./per 
+  917  roslaunch openni_launch openni.launch 
+  918  cd ../..
+  919  la
+  920  ls
+  921  clear
+  922  history
+  923  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  924  ./mainsuperpixelling 
+  925  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  926  ./mainsuperpixelling 
+  927  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  928  ./mainsuperpixelling 
+  929  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  930  ./mainsuperpixelling 
+  931  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  932  ./mainsuperpixelling 
+  933  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  934  ./mainsuperpixelling 
+  935  cd ..
+  936  cd LS
+  937  cd LSD_Working/
+  938  cd Doubt_Line/
+  939  clear
+  940  ls
+  941  rosrun image_view image_view image:=/camera/rgb/image_color
+  942  convert 11.jpg 11.pgm
+  943  convert 12.jpg 12.pgm
+  944  cd ..
+  945  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+  946  ./run 
+  947  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+  948  ./run 
+  949  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+  950  ./run 
+  951  clear
+  952  cd ..
+  953  cd WarpLineCluster
+  954  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  955  ./mainsuperpixelling 
+  956  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  957  ./mainsuperpixelling 
+  958  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+  959  ./mainsuperpixelling 
+  960  sudo naultilus
+  961  sudo nautilus
+  962  cd ~
+  963  clear
+  964  sudo nautilus
+  965  cd FNP_Work/
+  966  clear
+  967  ls
+  968  cd py_codes/
+  969  vim resize.py
+  970  cd Dat
+  971  clear
+  972  cd Dataset
+  973  ls
+  974  clear
+  975  cd .
+  976  cd ..
+  977  ls
+  978  cd Dataset/
+  979  ls
+  980  cd temp
+  981  ls
+  982  cd ..
+  983  cd temp/
+  984  clear
+  985  ls
+  986  cd Dataset/
+  987  ls
+  988  history
+  989  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+  990  ls
+  991  clear
+  992  pyhon
+  993  python
+  994  ls
+  995  vim data_gen.py
+  996  python data_gen.py 
+  997  vim data_gen.py
+  998  python data_gen.py 
+  999  vim data_gen.py
+ 1000  python data_gen.py 
+ 1001  clear
+ 1002  cd /home/siva/FNP_Work/py_codes/fnp_new/Semi_Sup_Learn/final_deep/data/Dataset
+ 1003  clear
+ 1004  mogrify -resize 16x16 -format png *
+ 1005  ls
+ 1006  cd ..
+ 1007  ls
+ 1008  cd data
+ 1009  ls
+ 1010  vim gen_data.py
+ 1011  geany gen_data.py
+ 1012  gedit gen_data.py
+ 1013  cd RRC/WarpLineCluster
+ 1014  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1015  cd Doubt_Line/
+ 1016  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1017  ./per 
+ 1018  cd line_img/
+ 1019  ./per 
+ 1020  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1021  ./per 
+ 1022  cd ..
+ 1023  clear
+ 1024  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1025  ls
+ 1026  mv frame0000.jpg 3.jpg
+ 1027  convert 3.jpg 3.pgm
+ 1028  cd ../..
+ 1029  cd LSD_Working/
+ 1030  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1031  ./run 
+ 1032  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1033  convert 4.jpg 4.pgm
+ 1034  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1035  ./run 
+ 1036  cd cd ..
+ 1037  cd ..
+ 1038  cd WarpLineCluster
+ 1039  ls
+ 1040  cd Doubt_Line/
+ 1041  cd line_
+ 1042  cd line_img/
+ 1043  clear
+ 1044  ls
+ 1045  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1046  ./per 
+ 1047  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1048  ./per 
+ 1049  cd ..
+ 1050  ls
+ 1051  cd LSD_Working/
+ 1052  clear
+ 1053  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1054  cd Doubt_Line/
+ 1055  ls
+ 1056  convert 5.jpg 5.pgm
+ 1057  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1058  cd .
+ 1059  cd ..
+ 1060  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1061  ./run 
+ 1062  cd ..
+ 1063  cd WarpLineCluster
+ 1064  cd Doubt_Line/
+ 1065  cd line_
+ 1066  cd line_img/
+ 1067  ./per 
+ 1068  g++ Perspective.cpp -o per `pkg-config --libs --cflags opencv`
+ 1069  ./per 
+ 1070  cd ..
+ 1071  clear
+ 1072  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1073  cd ../..
+ 1074  cd LSD_Working/
+ 1075  ls
+ 1076  cd Doubt_Line/
+ 1077  convert 6.jpg 
+ 1078  convert 6.jpg 6.pgm
+ 1079  convert 7.jpg 7.pgm
+ 1080  clear
+ 1081  cd ..
+ 1082  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1083  ./run 
+ 1084  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1085  cd Doubt_Line/
+ 1086  convert 8.jpg 8.pgm
+ 1087  convert 9.jpg 9.pgm
+ 1088  convert 10.jpg 10.pgm
+ 1089  cd ..
+ 1090  clear
+ 1091  ls
+ 1092  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1093  ./run 
+ 1094  clear
+ 1095  roslaunch openni_launch openni.launch 
+ 1096  cd  `
+ 1097  cd ~
+ 1098  clear
+ 1099  cd FNP_Work/
+ 1100  cd py_codes/
+ 1101  cd ..
+ 1102  cd Dataset/
+ 1103  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1104  sudo apt-get install imagemagick
+ 1105  clear
+ 1106  mogrify -resize 64x64 -format png *
+ 1107  clear
+ 1108  cd ..
+ 1109  ls
+ 1110  cd temp/
+ 1111  ls
+ 1112  cd Dataset/
+ 1113  mogrify -resize 16x16 -format png *
+ 1114  cd ..
+ 1115  ls
+ 1116  cd ..
+ 1117  ls
+ 1118  clear
+ 1119  ls
+ 1120  cd ..
+ 1121  ls
+ 1122  cd FNP_Work/
+ 1123  ls
+ 1124  cd py_codes/
+ 1125  ks
+ 1126  ls
+ 1127  cd fnp_new/ls
+ 1128  cd fnp_new/
+ 1129  ls
+ 1130  cd Semi_Sup_Learn/
+ 1131  clear
+ 1132  ls
+ 1133  cd final_deep/
+ 1134  ls
+ 1135  clear
+ 1136  ls
+ 1137  cd code/
+ 1138  clear
+ 1139  ls
+ 1140  DBN.py
+ 1141  python DBN.py
+ 1142  cd ..
+ 1143  cd data/
+ 1144  python gen_data.py 
+ 1145  clear
+ 1146  cd t
+ 1147  ls
+ 1148  cd ..
+ 1149  clear
+ 1150  cd data/
+ 1151  ls
+ 1152  cd Dataset/
+ 1153  ls
+ 1154  cd guy/
+ 1155  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1156  cd ../hans/
+ 1157  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1158  cd ../lady/
+ 1159  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1160  clear
+ 1161  ls
+ 1162  clear
+ 1163  history
+ 1164  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1165  N=3000; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1166  N=1; for X in *.png; do mv $X $N.png; N=$(($N+1)); done
+ 1167  mogrify -resize 16x16 format png *
+ 1168  history
+ 1169  mogrify -resize 16x16 -format png *
+ 1170  cd ..
+ 1171  clear
+ 1172  ls
+ 1173  vim gen_data.py
+ 1174  python gen_data.py 
+ 1175  vim gen_data.py
+ 1176  python gen_data.py 
+ 1177  vim gen_data.py
+ 1178  python gen_data.py 
+ 1179  vim gen_data.py
+ 1180  python gen_data.py 
+ 1181  vim gen_data.py
+ 1182  python gen_data.py 
+ 1183  vim gen_data.py
+ 1184  python gen_data.py 
+ 1185  vim gen_data.py
+ 1186  vim gen_data.py 
+ 1187  python gen_data.py 
+ 1188  clear
+ 1189  python gen_data.py 
+ 1190  vim gen_data.py 
+ 1191  python gen_data.py 
+ 1192  vim gen_data.py 
+ 1193  python gen_data.py 
+ 1194  vim gen_data.py 
+ 1195  python gen_data.py 
+ 1196  vim gen_data.py 
+ 1197  python gen_data.py 
+ 1198  vim test.py
+ 1199  python test.py 
+ 1200  vim test.py
+ 1201  python test.py 
+ 1202  vim test.py
+ 1203  python test.py 
+ 1204  vim test2.py
+ 1205  pythohn test2.py
+ 1206  python test2.py
+ 1207  vim test2.py
+ 1208  python test2.py
+ 1209  vim test2.py
+ 1210  clear
+ 1211  ls
+ 1212  cd lady/
+ 1213  mkdir bw && for i in *.jpg; do convert $i -colorspace Gray bw/$i; done
+ 1214  mkdir bw && for i in *.png; do convert $i -colorspace Gray bw/$i; done
+ 1215  rm -r bw
+ 1216  clear
+ 1217  mkdir bw && for i in *.png; do convert $i -colorspace Gray bw/$i; done
+ 1218  clear
+ 1219  ls
+ 1220  cd ..
+ 1221  ls
+ 1222  vim gen_data.py 
+ 1223  python gen_data.py 
+ 1224  ls
+ 1225  vim test.py 
+ 1226  vim test2.py 
+ 1227  vim test3.py
+ 1228  python test3.py 
+ 1229  vim test3.py
+ 1230  python test3.py 
+ 1231  vim test3.py
+ 1232  python test3.py 
+ 1233  vim test3.py
+ 1234  python test3.py 
+ 1235  vim test3.py
+ 1236  python test3.py 
+ 1237  vim test3.py
+ 1238  python test3.py 
+ 1239  vim test3.py
+ 1240  python test3.py 
+ 1241  vim test3.py
+ 1242  python test3.py 
+ 1243  vim test3.py
+ 1244  python test3.py 
+ 1245  vim test3.py
+ 1246  python test3.py 
+ 1247  clear
+ 1248  ls
+ 1249  vim gen_data_final.py
+ 1250  geany gen_data_final.py 
+ 1251  python
+ 1252  python test
+ 1253  python test.py 
+ 1254  clear
+ 1255  ls
+ 1256  python test.py 
+ 1257  clear
+ 1258  ls
+ 1259  cd lady
+ 1260  ls
+ 1261  cd ..
+ 1262  cd guy
+ 1263  clear
+ 1264  ls
+ 1265  mkdir bw && for i in *.png; do convert $i -colorspace Gray bw/$i; done
+ 1266  ls
+ 1267  cd bw
+ 1268  ls
+ 1269  clear
+ 1270  cd ..
+ 1271  cd hans/
+ 1272  ls
+ 1273  mkdir bw && for i in *.png; do convert $i -colorspace Gray bw/$i; done
+ 1274  clear
+ 1275  cd bw
+ 1276  ls
+ 1277  clear
+ 1278  ls
+ 1279  cd ..
+ 1280  ls
+ 1281  python test4.py 
+ 1282  clear
+ 1283  ls
+ 1284  clear
+ 1285  ls
+ 1286  python gen_data_final.py 
+ 1287  ls
+ 1288  clear
+ 1289  s
+ 1290  cd ..
+ 1291  lls
+ 1292  cd ..
+ 1293  ks
+ 1294  clear
+ 1295  ls
+ 1296  cd code/
+ 1297  ls
+ 1298  clear
+ 1299  ls
+ 1300  python DBN.py 
+ 1301  cd RRC/DNU/
+ 1302  history
+ 1303  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1304  ./mainsuperpixelling 
+ 1305  clear
+ 1306  ls
+ 1307  roslaunch openni_launch openni.launch 
+ 1308  cd ..
+ 1309  cd LSD_Working/
+ 1310  mkdir New_Test
+ 1311  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1312  ls
+ 1313  clear
+ 1314  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1315  roslaunch turtlebot_bringup minimal.launch 
+ 1316  sudo chmod 777 /dev/ttyUSB0
+ 1317  roslaunch turtlebot_bringup minimal.launch 
+ 1318  sudo chmod 777 /dev/ttyUSB0
+ 1319  lsusb
+ 1320  sudo chmod 777 /dev/ttyUSB0
+ 1321  sudo chmod 777 /dev/ttyUSB1
+ 1322  roslaunch turtlebot_bringup minimal.launch 
+ 1323  sudo chmod 777 /dev/ttyUSB0
+ 1324  clear
+ 1325  sudo chmod 777 /dev/ttyUSB0
+ 1326  roslaunch turtlebot_bringup minimal.launch 
+ 1327  sudo chmod 777 /dev/ttyUSB0
+ 1328  roslaunch turtlebot_bringup minimal.launch 
+ 1329  clear
+ 1330  ls
+ 1331  cd ,,
+ 1332  cd ..
+ 1333  clear
+ 1334  ls
+ 1335  cd DNU_WLC/
+ 1336  ls
+ 1337  history
+ 1338  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1339  ./mainsuperpixelling 
+ 1340  cd ..
+ 1341  cd LSD_Working/
+ 1342  cd pillar/
+ 1343  cd line_txt/
+ 1344  ls
+ 1345  N=1; for X in *.txt; do mv $X $N.txt; N=$(($N+1)); done
+ 1346  ls
+ 1347  clear
+ 1348  cd ..
+ 1349  cd DNU_WLC/
+ 1350  ./.m
+ 1351  ./mainsuperpixelling 
+ 1352  clear
+ 1353  ./mainsuperpixelling 
+ 1354  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1355  ./mainsuperpixelling 
+ 1356  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1357  ./mainsuperpixelling 
+ 1358  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1359  ./mainsuperpixelling 
+ 1360  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1361  ./mainsuperpixelling 
+ 1362  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1363  ./mainsuperpixelling 
+ 1364  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1365  ./mainsuperpixelling 
+ 1366  clear
+ 1367  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1368  ./mainsuperpixelling 
+ 1369  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1370  ./mainsuperpixelling 
+ 1371  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1372  ./mainsuperpixelling 
+ 1373  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1374  ./mainsuperpixelling 
+ 1375  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1376  ./mainsuperpixelling 
+ 1377  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1378  ./mainsuperpixelling 
+ 1379  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1380  .m
+ 1381  ./mainsuperpixelling 
+ 1382  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1383  ./mainsuperpixelling 
+ 1384  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1385  ./mainsuperpixelling 
+ 1386  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1387  ./mainsuperpixelling 
+ 1388  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1389  ./mainsuperpixelling 
+ 1390  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1391  ./mainsuperpixelling 
+ 1392  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1393  ./mainsuperpixelling 
+ 1394  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1395  ./mainsuperpixelling 
+ 1396  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1397  ./mainsuperpixelling 
+ 1398  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1399  ./mainsuperpixelling 
+ 1400  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1401  ./mainsuperpixelling 
+ 1402  cd ../DNU
+ 1403  clear
+ 1404  ls
+ 1405  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1406  ./mainsuperpixelling 
+ 1407  cd ../DNU_WLC/
+ 1408  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1409  ./mainsuperpixelling 
+ 1410  cd ../DNU
+ 1411  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1412  ./mainsuperpixelling 
+ 1413  cd ..
+ 1414  cd WLC/
+ 1415  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1416  ./mainsuperpixelling 
+ 1417  cd ../WLC(copy)
+ 1418  cd ..
+ 1419  ls
+ 1420  cd WLC\ (
+ 1421  cd WLCnew/
+ 1422  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1423  ./mainsuperpixelling 
+ 1424  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1425  cd ..
+ 1426  ls
+ 1427  cd WLC_DNU/
+ 1428  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1429  ./mainsuperpixelling 
+ 1430  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1431  ./mainsuperpixelling 
+ 1432  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1433  ./mainsuperpixelling 
+ 1434  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1435  ./mainsuperpixelling 
+ 1436  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1437  ./mainsuperpixelling 
+ 1438  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1439  ./mainsuperpixelling 
+ 1440  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1441  ./mainsuperpixelling 
+ 1442  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1443  ./mainsuperpixelling 
+ 1444  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1445  ./mainsuperpixelling 
+ 1446  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1447  ./mainsuperpixelling 
+ 1448  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1449  ./mainsuperpixelling 
+ 1450  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1451  ./mainsuperpixelling 
+ 1452  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1453  ./mainsuperpixelling 
+ 1454  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1455  ./mainsuperpixelling 
+ 1456  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1457  ./mainsuperpixelling 
+ 1458  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1459  ./mainsuperpixelling 
+ 1460  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1461  ./mainsuperpixelling 
+ 1462  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1463  ./mainsuperpixelling 
+ 1464  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1465  ./mainsuperpixelling 
+ 1466  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1467  ./mainsuperpixelling 
+ 1468  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1469  ./mainsuperpixelling 
+ 1470  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1471  ./mainsuperpixelling 
+ 1472  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1473  ./mainsuperpixelling 
+ 1474  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1475  ./mainsuperpixelling 
+ 1476  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1477  ./mainsuperpixelling 
+ 1478  roslaunch turtlebot_teleop 
+ 1479  roslaunch turtlebot_teleop keyboard_teleop.launch 
+ 1480  ls
+ 1481  cd pillar/
+ 1482  ls
+ 1483  history
+ 1484  N=1; for X in *.jpg; do mv $X $N.jpg; N=$(($N+1)); done
+ 1485  N=1; for X in *.jpg; do convert N.jpg N.pgm ; N=$(($N+1)); done
+ 1486  N=1; for X in *.jpg; do convert $N.jpg $N.pgm; N=$(($N+1)); done
+ 1487  ls
+ 1488  clear
+ 1489  cd ..
+ 1490  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1491  ./run 
+ 1492  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1493  ./run 
+ 1494  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1495  ./run 
+ 1496  cd pillar/
+ 1497  N=1; for X in *.jpg; do rm $N.txt; N=$(($N+1)); done
+ 1498  cd ..
+ 1499  cd RRC/
+ 1500  ls
+ 1501  cd WLC_DNU/
+ 1502  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1503  ./mainsuperpixelling 
+ 1504  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1505  ./mainsuperpixelling 
+ 1506  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1507  ./mainsuperpixelling 
+ 1508  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1509  ./mainsuperpixelling 
+ 1510  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1511  ./mainsuperpixelling 
+ 1512  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1513  ./mainsuperpixelling 
+ 1514  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1515  ./mainsuperpixelling 
+ 1516  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1517  ./mainsuperpixelling 
+ 1518  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1519  ./mainsuperpixelling 
+ 1520  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1521  ./mainsuperpixelling 
+ 1522  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1523  ./mainsuperpixelling 
+ 1524  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1525  ./mainsuperpixelling 
+ 1526  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1527  ./mainsuperpixelling 
+ 1528  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1529  ./mainsuperpixelling 
+ 1530  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1531  ./mainsuperpixelling 
+ 1532  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1533  ./mainsuperpixelling 
+ 1534  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1535  ./mainsuperpixelling 
+ 1536  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1537  ./mainsuperpixelling 
+ 1538  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1539  ./MarkovModule/
+ 1540  ./mainsuperpixelling 
+ 1541  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1542  ./mainsuperpixelling 
+ 1543  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1544  ./mainsuperpixelling 
+ 1545  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1546  ./mainsuperpixelling 
+ 1547  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1548  ./mainsuperpixelling 
+ 1549  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1550  clear
+ 1551  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1552  ./mainsuperpixelling 
+ 1553  free
+ 1554  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1555  ./mainsuperpixelling 
+ 1556  sudo su
+ 1557  clear
+ 1558  cd RRC/LSD_Working/
+ 1559  ls
+ 1560  cd cd turn/
+ 1561  cd turn
+ 1562  ks
+ 1563  ls
+ 1564  clear
+ 1565  N=1; for X in *.jpg; do mv $X $N.jpg; N=$(($N+1)); done
+ 1566  ls
+ 1567  N=1; for X in *.jpg; do convert $X $N.pgm; N=$(($N+1)); done
+ 1568  ls
+ 1569  clear
+ 1570  cd ..
+ 1571  g++ runfile.cpp  -o run 'pkg-config --clfags --libs opencv`
+ 1572  g++ runfile.cpp  -o run `pkg-config --clfags --libs opencv`
+ 1573  g++ runfile.cpp -o run `pkg-config --clfags --libs opencv`
+ 1574  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1575  ./run 
+ 1576  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1577  ./run 
+ 1578  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1579  ./run 
+ 1580  clear
+ 1581  lls
+ 1582  clear
+ 1583  ls
+ 1584  cd turn/
+ 1585  ls
+ 1586  cd line_txt/
+ 1587  ls
+ 1588  cd ..
+ 1589  scp -r turn siva@10.2.36.138:
+ 1590  clear
+ 1591  ls
+ 1592  cd turn/
+ 1593  ls
+ 1594  cd line_txt/
+ 1595  ls
+ 1596  cd..
+ 1597  cd ..
+ 1598  clear
+ 1599  xrandr
+ 1600  xrandr --output LVDS1 --primary
+ 1601  sudo xrandr --output LVDS1 --primary
+ 1602  cd RRC/WLC
+ 1603  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1604  ./mainsuperpixelling 
+ 1605  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1606  ./mainsuperpixelling 
+ 1607  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1608  ./mainsuperpixelling 
+ 1609  man ssh
+ 1610  ssh siva@10.2.36.138
+ 1611  ifconfig
+ 1612  clear
+ 1613  sudo ssh siva@10.2.36.138
+ 1614  sudo ssh siva@10.2.36.138:
+ 1615  ssh siva@10.2.36.138:
+ 1616  ssh root@10.2.36.138:
+ 1617  celar
+ 1618  clear
+ 1619  cd ..
+ 1620  cd Desktop/ICRA_14/ieeeconf/Images/
+ 1621  ls
+ 1622  epstopdf Smallobs+homogobs.eps 
+ 1623  ls
+ 1624  epstopdf Smallobs+homogobs.eps 
+ 1625  epstopdf pillar_homo_our.eps 
+ 1626  epstopdf comparison_our.eps 
+ 1627  cd ~/RRC/WLC
+ 1628  clear
+ 1629  ./mainsuperpixelling 
+ 1630  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1631  ./mainsuperpixelling 
+ 1632  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1633  ./mainsuperpixelling 
+ 1634  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1635  ./mainsuperpixelling 
+ 1636  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1637  ./mainsuperpixelling 
+ 1638  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1639  ./mainsuperpixelling 
+ 1640  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1641  ./mainsuperpixelling 
+ 1642  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1643  ./mainsuperpixelling 
+ 1644  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1645  ./mainsuperpixelling 
+ 1646  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1647  ./mainsuperpixelling 
+ 1648  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1649  ./mainsuperpixelling 
+ 1650  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1651  ./mainsuperpixelling 
+ 1652  vi ~/.config/monitors.xml
+ 1653  clear
+ 1654  ls
+ 1655  clear
+ 1656  cd RRC/
+ 1657  ls
+ 1658  cd LSD_Working/
+ 1659  cd Doubt_Line/
+ 1660  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1661  history
+ 1662  N=42; for X in *.jpg; do mv $X $N.jpg; N=$(($N+1)); done
+ 1663  ls
+ 1664  N=42; for X in *.jpg; do convert $X $N.pgm; N=$(($N+1)); donecd Desktop/ICRA_14/ieeeconf/Images/
+ 1665  epstopdf genericresult.eps 
+ 1666  epstopdf guitarfret_plank.eps 
+ 1667  cd Desktop/ICRA_14/ieeeconf/Images/
+ 1668  epstopdf small_superpixel.
+ 1669  cd Desktop/ICRA_14/ieeeconf/Images/
+ 1670  epstopdf small_obs.eps 
+ 1671  epstopdf low_homo.eps
+ 1672  cd Desktop/ICRA_14/ieeeconf/Images/
+ 1673  epstopdf pen_book.eps 
+ 1674  epstopdf low_homo.eps
+ 1675  epstopdf small_obs.eps 
+ 1676  epstopdf guitarfret_plank.eps 
+ 1677  epstopdf genericresult.eps 
+ 1678  epstopdf low_homo.eps
+ 1679  epstopdf pen_book.eps 
+ 1680  epstopdf guitarfret_plank.eps 
+ 1681  epstopdf appearance_change.eps 
+ 1682  epstopdf lsd_image.eps 
+ 1683  epstopdf flowchart.eps 
+ 1684  epstopdf small_superpixel.eps
+ 1685  clear
+ 1686  epstopdf flowchart.eps 
+ 1687  epstopdf lsd_image.eps
+ 1688  epstopdf flowchart.eps 
+ 1689  epstopdf step.eps 
+ 1690  epstopdf 3D.eps 
+ 1691  epstopdf kinect_seg_1 
+ 1692  epstopdf kinect_seg_1.eps 
+ 1693  epstopdf low_pure_homo.eps
+ 1694  epstopdf 3D.eps 
+ 1695  cd ..
+ 1696  gs -sDEVICE=pdfwrite -dPDFSETTINGS=/printer -dCompatibilityLevel=1.4 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf final_draft_2.pdf 
+ 1697  man gs
+ 1698  gs -sDEVICE=pdfwrite -dPDFSETTINGS=/printer -dCompatibilityLevel=1.4 -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf final_draft_2.pdf 
+ 1699  cd Images/
+ 1700  epstopdf flowchart.eps 
+ 1701  cd RRC/LSD_Working/3d_PAINTING/
+ 1702  convert imgage1.jpg 3.pgm
+ 1703  cd ..
+ 1704  g++ runfile.cpp -o run `pkg-config --libs --cflags opencv`
+ 1705  ./run 
+ 1706  cd ..
+ 1707  cd WLC
+ 1708  ls
+ 1709  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1710  ./mainsuperpixelling 
+ 1711  history
+ 1712  cd ..
+ 1713  cd LSD_Working/
+ 1714  ls
+ 1715  history
+ 1716  cd ../..
+ 1717  cd FNP_Work/
+ 1718  history
+ 1719  ls
+ 1720  cd Dataset/
+ 1721  history
+ 1722  ls
+ 1723  cd ..
+ 1724  cd RRC/
+ 1725  ls
+ 1726  cd WLC
+ 1727  ks
+ 1728  ls
+ 1729  clear
+ 1730  ls
+ 1731  cd 3d_PAINTING/
+ 1732  mogrify -resize 640x480 *.jpg
+ 1733  cd ..
+ 1734  ./mainsuperpixelling 
+ 1735  cd 3d_PAINTING/
+ 1736  mogrify -resize 640x480 *.jpg
+ 1737  mogrify -resize 640X480 *.jpg
+ 1738  mogrify -resize 640X500 *.jpg
+ 1739  mogrify -resize x480 3.jpg
+ 1740  mogrify -resize 640 3.jpg
+ 1741  mogrify -resize 640x480 -format jpg *
+ 1742  mogrify -resize 640x480 -format jpg *.pgm
+ 1743  cd ..
+ 1744  cd LSD_Working/
+ 1745  cd Doubt_Line/
+ 1746  cd line_
+ 1747  ls
+ 1748  cd line_img/
+ 1749  g++ Perspective.cpp -o per `pkg-config --cflags --libs opencv`
+ 1750  ./per 
+ 1751  g++ Perspective.cpp -o per `pkg-config --cflags --libs opencv`
+ 1752  ./per 
+ 1753  g++ Perspective.cpp -o per `pkg-config --cflags --libs opencv`
+ 1754  ./per 
+ 1755  g++ Perspective.cpp -o per `pkg-config --cflags --libs opencv`
+ 1756  ./per 
+ 1757  g++ Perspective.cpp -o per `pkg-config --cflags --libs opencv`
+ 1758  ./per 
+ 1759  cd RRC/WLC
+ 1760  clear
+ 1761  ls
+ 1762  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1763  ./mainsuperpixelling 
+ 1764  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1765  ./mainsuperpixelling 
+ 1766  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1767  ./mainsuperpixelling 
+ 1768  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1769  ./mainsuperpixelling 
+ 1770  cd Desktop/ICRA_14/ieeeconf/Images/
+ 1771  epstopdf flowchart.eps 
+ 1772  epstopdf lsd_image.eps 
+ 1773  python
+ 1774  rosbag record camera/depth_registered/image_raw camera/depth_registered/camera_info camera/rgb/image_raw camera/rgb/camera_info --limit=60 -O 1
+ 1775  rosbag record cacamera/rgb/image_raw camera/rgb/camera_info --limit=60 -O 1
+ 1776  rosbag record cacamera/rgb/image_raw camera/rgb/camera_info --limit=10 -O 1
+ 1777  rosbag record camera/depth_registered/image_raw camera/depth_registered/camera_info camera/rgb/image_raw camera/rgb/camera_info --limit=60 -O kinect
+ 1778  clear
+ 1779  rosbag record camera/depth_registered/image_raw camera/depth_registered/camera_info camera/rgb/image_raw camera/rgb/camera_info --limit=60 -O kinect
+ 1780  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=60 -O kinect1
+ 1781  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=8000 -O kinect1
+ 1782  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=8 -O kinect1
+ 1783  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect1
+ 1784  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect2
+ 1785  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect3
+ 1786  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect4
+ 1787  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect5
+ 1788  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect6
+ 1789  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=2000 -O kinect7
+ 1790  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect8
+ 1791  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect9
+ 1792  rosbag record camera/rgb/image_raw camera/rgb/camera_info --limit=1000 -O kinect10
+ 1793  history
+ 1794  roslaunch turtlebot_teleop keyboard_teleop.launch
+ 1795  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect1
+ 1796  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect2
+ 1797  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect3
+ 1798  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect4
+ 1799  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect5
+ 1800  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect6
+ 1801  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=2000 -O kinect7
+ 1802  sudo chmod 777 /dev/ttyUSB-
+ 1803  sudo chmod 777 /dev/ttyUSB0
+ 1804  roslaunch turtlebot_bringup minimal.launch 
+ 1805  sudo chmod 777 /dev/ttyUSB0
+ 1806  roslaunch turtlebot_bringup minimal.launch 
+ 1807  sudo chmod 777 /dev/ttyUSB0
+ 1808  roslaunch turtlebot_bringup minimal.launch 
+ 1809  sudo chmod 777 /dev/ttyUSB0
+ 1810  roslaunch turtlebot_bringup minimal.launch 
+ 1811  sudo chmod 777 /dev/ttyUSB0
+ 1812  roslaunch turtlebot_bringup minimal.launch 
+ 1813  sudo chmod 777 /dev/ttyUSB0
+ 1814  roslaunch turtlebot_bringup minimal.launch 
+ 1815  clear
+ 1816  ls
+ 1817  mkdir RUN
+ 1818  cd run
+ 1819  cd RUN
+ 1820  clear
+ 1821  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1822  rosrun image_view extract_images _sec_per_frame:=0.01 image:=/camera/rgb/image_color
+ 1823  clear
+ 1824  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1825  rosrun image_view image_view image:=/camera/rgb/image_raw
+ 1826  history
+ 1827  clear
+ 1828  cd ..
+ 1829  history
+ 1830  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=10 -O kinect1
+ 1831  sudo apt-get install kdenlive
+ 1832  python 
+ 1833  clear
+ 1834  clear history
+ 1835  history
+ 1836  roslaunch openni_launch openni.launch depth_registration:=true
+ 1837  roscore
+ 1838  roslaunch openni_launch openni.launch depth_registration:=true
+ 1839  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1840  rosbag play kinect1.bag 
+ 1841  rosbag info kinect1.bag 
+ 1842  rosbag play kinect1.bag 
+ 1843  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1844  roslaunch turtlebot_bringup minimal.launch 
+ 1845  sudo chmod 777 /dev/ttyUSB0
+ 1846  clear
+ 1847  roslaunch turtlebot_bringup minimal.launch 
+ 1848  sudo chmod 777 /dev/ttyUSB0
+ 1849  roslaunch turtlebot_bringup minimal.launch 
+ 1850  sudo chmod 777 /dev/ttyUSB0
+ 1851  roslaunch turtlebot_bringup minimal.launch 
+ 1852  cd ..
+ 1853  rosbag play kinect1.bag 
+ 1854  rosbag info kinect1.bag 
+ 1855  rosbag play kinect1.bag 
+ 1856  ks
+ 1857  ls
+ 1858  cd RUN
+ 1859  rosrun image_view extract_images _sec_per_frame:=0.03 image:=\camera\rgb\image_color
+ 1860  rosrun image_view extract_images _sec_per_frame:=0.01 image:=\camera\rgb\image_color
+ 1861  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1862  rosrun image_view extract_images _sec_per_frame:=0.01 image:=\camera\rgb\image_color
+ 1863  clear
+ 1864  rosrun image_view extract_images _sec_per_frame:=0.01 image:=/camera/rgb/image_color
+ 1865  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1866  cd ..
+ 1867  clear
+ 1868  cd RUN2
+ 1869  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1870  cd ..
+ 1871  cd RUN3
+ 1872  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1873  cd ..
+ 1874  cd RUN4
+ 1875  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1876  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1877  rosrun image_view extract_images _sec_per_frame:=0.03 image:=/camera/rgb/image_color
+ 1878  roscore
+ 1879  history
+ 1880  cd RRC/LSD_Working/
+ 1881  cd tex
+ 1882  N=2614; for X in *.jpg; do convert $X $N.pgm; N=$(($N+1)); done
+ 1883  clear
+ 1884  cd ..
+ 1885  g++ runfile.cpp -o run `pkg-config --cflags --libs opencv`
+ 1886  ./run 
+ 1887  cd ..
+ 1888  cd WLC
+ 1889  clear
+ 1890  ls
+ 1891  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1892  ./mainsuperpixelling 
+ 1893  g++ mainsuperpixelling.cpp -o mainsuperpixelling `pkg-config --cflags --libs opencv` SuperPixelModule/super_pixel.cc MarkovModule/graph.cpp MarkovModule/maxflow.cpp
+ 1894  ./mainsuperpixelling 
+ 1895  history
+ 1896  rosbag record camera/rgb/image_color camera/rgb/camera_info --limit=1000 -O kinect_tex
+ 1897  rosrun image_view image_view image:=/camera/rgb/image_color
+ 1898  roslaunch openni_launch openni.launch depth_registration:=true
+ 1899  roscore
+ 1900  roslaunch turtlebot_teleop keyboard_teleop.launch 
+ 1901  rosbag play kinect_tex.bag 
+ 1902  history
+ 1903  history > history

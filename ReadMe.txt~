@@ -1,0 +1,22 @@
+Written at Robotics Research Centre, IIIT-Hyderbad.
+
+This is the first part of the ground segmentation code. 
+
+All the images on which this code needs to be run have to converted to PGM format initially. Give the path of this folder at line number 37.
+
+This code produces 2 kinds of outputs. First is a set of txt files for each of the PGM images where the locations of line segments in the image are specified. The other is an image for each of the PGM files which visualizes all the line segments that are present in the image. 
+
+Create a separate folder for the text files and the jpg files. In line number 38 specify the folder path for the jpg files to be saved. In line number 39 specify the same folder path as specified in line number 38.
+
+In line number 39 specify the folder path for saving the txt files. 
+
+This code can be compiled by the following line :
+
+ g++ runlsd.cpp -o runlsd `pkg-config --cflags --libs opencv`
+
+Run the code with 
+ 
+ ./runlsd
+
+
+

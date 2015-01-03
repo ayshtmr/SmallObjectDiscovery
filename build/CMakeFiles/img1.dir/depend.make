@@ -18,6 +18,15 @@ CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/geometry_msgs/Twist.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/geometry_msgs/TwistStamped.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/geometry_msgs/Vector3.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/geometry_msgs/Vector3Stamped.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/connection.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/null_types.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/signal1.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/signal9.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/simple_filter.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/subscriber.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/sync_policies/exact_time.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/synchronizer.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/message_filters/time_synchronizer.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/nav_msgs/MapMetaData.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/nav_msgs/OccupancyGrid.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/opencv2/core/core.hpp
@@ -34,6 +43,8 @@ CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/advertise_options.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/advertise_service_options.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/assert.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/builtin_message_traits.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/callback_queue.h
+CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/callback_queue_interface.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/common.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/console.h
 CMakeFiles/img1.dir/src/img1.o: /opt/ros/fuerte/include/ros/duration.h

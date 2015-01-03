@@ -17,86 +17,40 @@
 #include "sensor_msgs/image_encodings.h"
 #include "image_transport/image_transport.h"
 #include <ros/callback_queue.h>
-#include "message_filters/subscriber.h"
-#include "message_filters/time_synchronizer.h"
 
 
-// void test(void )
-// {
-//     cout<<"hola";
-// }
+
+namespace enc = sensor_msgs::image_encodings;
+using namespace cv;
+using namespace std;
 
 typedef union U_FloatParse {
     float float_data;
     unsigned char byte_data[4];
 } U_FloatConvert;
-//sensor_msgs::CvBridge obj1;
-//namespace enc = sensor_msgs::image_encodings;
-using namespace cv;
-using namespace std;
-using namespace sensor_msgs;
-using namespace message_filters;
 
+// typedef message_filters::TimeSynchronizer<sensor_msgs::Image,nav_msgs::OccupancyGrid> Sync;
+sensor_msgs::ImageConstPtr msga,msgc;
+nav_msgs::OccupancyGrid msgb;
 vector<Point2f>mc;
-int counter=0;
-vector<Point2f>goal;
+
+int counter;
 Mat im;
+Mat src_gray;
+int thresh=100;
 int h;
-Mat debug;
-Mat cmat;
+int heightofcam=0.25;
+int h1=480;
 ros::Publisher goal_pub;
 ros::Publisher pub2;
 ros::Publisher start_pub;
-int x=1,y=1,z=1;
-float ox=2.0,oy=2.0;
-float resolution=2.0;
+double x,y,z=1.0;
+int ox,oy;
+float resolution;
 double xg,yg,theta;
-int focal=580;//focal length kinect-IR
-
-void moveTo(double a, double b, double alpha)
-{
-    ROS_INFO("Move to (%lf, %lf, %lf)", a, b, alpha);
-    cout << "Move" << a <<" "<< b;
-    geometry_msgs::PoseStamped goal;
-    goal.header.frame_id="map";
-    goal.header.stamp=ros::Time::now();
-
-    goal.pose.position.x=a;
-    goal.pose.position.y=b;
-    goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
-
-    goal_pub.publish(goal);
-
-}
-
-void goalCallback(const nav_msgs::OccupancyGrid &msg2)
-{
-    ox=(-1*msg2.info.origin.position.x);
-    oy=(-1*msg2.info.origin.position.y);
-    resolution=msg2.info.resolution;
-    h=msg2.info.height;
-    ox=(ox/resolution);
-    oy=int (oy/resolution);
-    oy=float(h-oy);
-
-    
-    ROS_INFO("Get Goal");
-    cout<<"s";
-    const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
-    cout<<"aaa";
-    double beta=atan2(goal[0].y-oy,goal[0].x-ox);
-    double x_inner=(goal[0].x-ox)*resolution;
-    double y_inner=(goal[0].y-oy)*resolution;
-    moveTo(x_inner, y_inner, beta);
-    //px=x;py=y;
-    std_msgs::Bool t;
-    t.data=true;
-    start_pub.publish(t);
-    //ros::Duration(20).sleep();
+int focal=525;//focal length kinect-IR
 
 
-
-}
 
 int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::ImageConstPtr depth_image)
 {
@@ -141,20 +95,64 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
 }
 
 
-
-
-
-void imageCallback(const sensor_msgs::ImageConstPtr &msg)
+void moveTo(double a, double b, double alpha)
 {
+    ROS_INFO("Move to (%lf, %lf, %lf)", a, b, alpha);
+    cout << "Move" << a <<" "<< b;
+    geometry_msgs::PoseStamped goal;
+    goal.header.frame_id="map";
+    goal.header.stamp=ros::Time::now();
+
+    goal.pose.position.x=a;
+    goal.pose.position.y=b;
+    goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
+    std_msgs::Bool t;
+    t.data=true;
+    start_pub.publish(t);
+
+    goal_pub.publish(goal);
+
+}
+
+int flag1=0,flag2=0,flag3=0;
+
+void goalCallback(const nav_msgs::OccupancyGrid &msg2)
+{
+    msgb=msg2;
+    flag1=1;
+    std::cout<<"Map <-"<<endl;
+
+
+
+}
+
+void callback( const sensor_msgs::ImageConstPtr &msg)
+{
+    msga=msg;
+    flag2=1;
+    std::cout<<"Img <-"<<endl;
+ 
+
+}
+
+void depthCallback(const sensor_msgs::ImageConstPtr& msg1){
+
+    msgc=msg1;
+    flag3=1;
+    std::cout<<"Depth <-"<<endl;
+
+}
+
+
+void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
+{
+
     
-       
-        // if(imwrite("1.pgm", cv_bridge::toCvShare(msg, "bgr8")->image))std::cout<<"done"<<endl;
-        // waitKey(10);
-        // if(imwrite("2.pgm", cv_bridge::toCvShare(msg, "bgr8")->image))std::cout<<"done"<<endl;
-        // waitKey(10);
-        if(imwrite("1.jpg", cv_bridge::toCvShare(msg, "bgr8")->image))std::cout<<"done"<<endl;
+
+
+     if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
         waitKey(10);
-        if(imwrite("2.jpg", cv_bridge::toCvShare(msg, "bgr8")->image))std::cout<<"done"<<endl;
+        if(imwrite("2.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
         waitKey(10);
         system("convert 1.jpg 1.pgm");
         system("convert 2.jpg 2.pgm");
@@ -171,6 +169,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
         RNG rng(12345);
 
         src=imread("blob.jpg");
+
+        int counter=0;
         
         //cout<<int(src_gray.channels())<<"<--- depth";
 
@@ -205,7 +205,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
             }
         }
 
-        int flag=0;
+        
 
         //vector<Point2f> mc( contours.size() );
         for( int i = 0; i < contours.size(); i++ )
@@ -216,7 +216,6 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
                 //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
                 mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
                 cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<endl;
-                flag=1;
                 counter++;
             }
             
@@ -233,93 +232,82 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
         //circle(drawing, Point(100,100),4,Scalar(100,100,100),-1,8,0);
         //circle(drawing, Point(100,150),4,Scalar(255,255,255),-1,8,0);
 
-
+        vector<Point2f>goal;
         namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
         imshow( "Contours", drawing );
+        waitKey(1000);
+
+            for (int j = 0; j < 1 ; ++j)
+            {
+                //minimum point of the contour
+                float depth = ReadDepthData(int(mc[j].y),int(mc[j].x), msg5);
+                float x1 = mc[j].x* depth / focal ;
+                float y1 = mc[j].y* depth / focal ;
+                float z1 = depth;
+                z1 /=1000;
+                x1 /=1000;
+                y1 /=1000;
+                ROS_INFO("Coordinates (camera_frame): %f,%f,%f", x1, y1, z1);
+                
+                goal.push_back(Point2f(-x1,z1));
+
+            }
 
 
-        //if(!flag){
-        waitKey(10000);
-       
-   
-
-
-    /*cv_bridge::CvImagePtr cv_ptr=toCvCopy(msg,enc::BGR8);
-    cout<<"rows"<<cv_ptr->image.rows<<" "<<"cols"<<cv_ptr->image.cols<<endl;
-    im=Mat(cv_ptr->image);
-
-    
-//to be written
-*/
-}
-
-void depthCallback(const sensor_msgs::ImageConstPtr& msg1)
-{
-     for(int a=0;a<1;a++)
-     {
         
-        int depth = ReadDepthData(int(mc[a].y),int(mc[a].x), msg1);
-       // depth /= 1000;
-        int x1 = int(mc[a].x)* depth / focal ;
-        int y1 = int(mc[a].y)* depth / focal ;
-        int z1 = depth;
-        z1 /=1000;
-        x1 /=1000;
-        y1 /=1000;
-        ROS_INFO("Coordinates (camera_frame): %d,%d,%d", x1, y1, z1);
-        ROS_INFO("Depth: %d", z1);
-        // xg = -x;
-        // yg = z;
-        // goal[a].x=float(xg);
-        // goal[a].y=float(yg);
-        // std::cout<<"hhjnjn"<<endl;
-    }
+
+    ox=-1*msg4.info.origin.position.x;
+    oy=-1*msg4.info.origin.position.y;
+    std::cout<<ox<<endl;
+    std::cout<<oy<<endl;    
+    resolution=msg4.info.resolution;
+    h=msg4.info.height;
+    ox=int (ox/resolution);
+    oy=int (oy/resolution);
+    oy=h-oy;
+    ROS_INFO("Get Goal");
+    //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
+    double beta=atan2(goal[0].y-oy,goal[0].x-ox);
+    double x_inner=(goal[0].x-ox)*resolution;
+    double y_inner=(goal[0].y-oy)*resolution;
+    moveTo(x_inner, y_inner, beta);
+    //px=x;py=y;
+   
+    //ros::Duration(20).sleep();
+
 
 }
-
-void test(){
-    std:cout<<"he"<<endl;
-}
-
 
 int main(int argc, char** argv)
 {
-    
     ros::init(argc,argv,"moving");
     ros::NodeHandle n1;
-    ros::NodeHandle n2;
-    ros::NodeHandle n3;
     image_transport::ImageTransport it(n1);
-    image_transport::ImageTransport it1(n2);
-
-        
+    image_transport::ImageTransport it1(n1);
+    //message_filters::Subscriber<sensor_msgs::Image> image_sub(n1, "camera/rgb/image_color", 1);
+    //message_filters::Subscriber<nav_msgs::OccupancyGrid> map_sub(n1, "map", 1);
+    //Sync sync(image_sub, map_sub, 10);
+    //sync.registerCallback(boost::bind(&callback,_1,_2));
+    image_transport::Subscriber sub2=it1.subscribe("/camera/rgb/image_color",1,callback);
+    //image_transport::Subscriber sub1 = it.subscribe("camera/rgb/image_color", 1, callback);
+    image_transport::Subscriber sub1 = it.subscribe("camera/depth/image", 1, depthCallback);
+    ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);
     
-
-
-   // ros::Subscriber sub1=n1.subscribe("/camera/rgb/color_image",1,imageCallback);
-   // ros::Subscriber sub2=n1.subscribe("/camera/depth/image_raw",1,depthCallback);
-    
-    
-    image_transport::Subscriber sub1 = it1.subscribe("camera/rgb/image_color", 1, imageCallback);
-    //image_transport::Subscriber sub2 = it.subscribe("camera/depth/image", 1, depthCallback);
-    // ros::Subscriber sub3=n3.subscribe("map",1,goalCallback);
-    // pub2 = n3.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
-  
-
-     ros::Rate r(1000);
-
-     while(ros::ok()){
-
-        // ros::getGlobalCallbackQueue()->callAvailable(ros::WallDuration(0));
+    pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
+    //ros::spin();
+    ros::Rate r(1000);
+    while(ros::ok())
+    {
         ros::spinOnce();
-        test();
+        //ros::getGlobalCallbackQueue()->callAvailable(ros::WallDuration(0));
+
+        // ros::MultiThreadedSpinner spinner(3); // Use 4 threads
+        // spinner.spin();
+        if(flag1&&flag2&&flag3)
+            callit(msga, msgb, msgc);
         r.sleep();
     }
-
-
-
-
     return 0;
-
+    //image=imread("folder_name",0);
 
 }

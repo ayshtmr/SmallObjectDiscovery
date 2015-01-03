@@ -161,19 +161,6 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
-# Target rules for targets named img1
-
-# Build rule for target.
-img1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 img1
-.PHONY : img1
-
-# fast build rule for target.
-img1/fast:
-	$(MAKE) -f CMakeFiles/img1.dir/build.make CMakeFiles/img1.dir/build
-.PHONY : img1/fast
-
-#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -291,6 +278,19 @@ test-results-run/fast:
 .PHONY : test-results-run/fast
 
 #=============================================================================
+# Target rules for targets named test1
+
+# Build rule for target.
+test1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test1
+.PHONY : test1
+
+# fast build rule for target.
+test1/fast:
+	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
+.PHONY : test1/fast
+
+#=============================================================================
 # Target rules for targets named tests
 
 # Build rule for target.
@@ -304,19 +304,19 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
-src/img1.o:
-	$(MAKE) -f CMakeFiles/img1.dir/build.make CMakeFiles/img1.dir/src/img1.o
-.PHONY : src/img1.o
+src/test1.o:
+	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.o
+.PHONY : src/test1.o
 
 # target to preprocess a source file
-src/img1.i:
-	$(MAKE) -f CMakeFiles/img1.dir/build.make CMakeFiles/img1.dir/src/img1.i
-.PHONY : src/img1.i
+src/test1.i:
+	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.i
+.PHONY : src/test1.i
 
 # target to generate assembly for a file
-src/img1.s:
-	$(MAKE) -f CMakeFiles/img1.dir/build.make CMakeFiles/img1.dir/src/img1.s
-.PHONY : src/img1.s
+src/test1.s:
+	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.s
+.PHONY : src/test1.s
 
 # Help Target
 help:
@@ -330,7 +330,6 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
-	@echo "... img1"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
@@ -341,10 +340,11 @@ help:
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
+	@echo "... test1"
 	@echo "... tests"
-	@echo "... src/img1.o"
-	@echo "... src/img1.i"
-	@echo "... src/img1.s"
+	@echo "... src/test1.o"
+	@echo "... src/test1.i"
+	@echo "... src/test1.s"
 .PHONY : help
 
 

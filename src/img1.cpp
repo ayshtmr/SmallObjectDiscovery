@@ -179,9 +179,20 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
 
 
         vector<Moments> mu(contours.size() );
+        vector <Point> min(contours.size());
+
         for( int i = 0; i < contours.size(); i++ )
-        { 
+        {   
+            min[i].x=9999;
+            min[i].y=9999;
             mu[i] = moments( contours[i], false );
+            for(int j=0;j< contours[i].size();j++){
+
+                if(contours[i][j].y<=min[i].y){
+                    min[i].y=contours[i][j].y;
+                    min[i].x=contours[i][j].x;
+                }
+            }
         }
 
         int flag=0;
@@ -192,7 +203,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
             if(contourArea(contours[i])>500)
              {
                 
-                mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+                //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+                mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
                 cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<endl;
                 flag=1;
                 counter++;
@@ -265,7 +277,7 @@ int main(int argc, char** argv)
    // ros::Subscriber sub2=n1.subscribe("/camera/depth/image_raw",1,depthCallback);
     //ros::Subscriber sub3=n3.subscribe("map",1,goalCallback);
     //pub2 = n3.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
-    image_transport::Subscriber sub2 = it.subscribe("camera/depth/image", 1, depthCallback);
+    //image_transport::Subscriber sub2 = it.subscribe("camera/depth/image", 1, depthCallback);
     image_transport::Subscriber sub1 = it1.subscribe("camera/rgb/image_color", 1, imageCallback);
     
     

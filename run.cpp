@@ -3,10 +3,9 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <fstream>
-#include "cv.h"
-#include "highgui.h"
 
-using namespace cv;
+
+
 using namespace std;
 
 

@@ -183,12 +183,12 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
 
         for( int i = 0; i < contours.size(); i++ )
         {   
-            min[i].x=9999;
-            min[i].y=9999;
+            min[i].x=-1;
+            min[i].y=-1;
             mu[i] = moments( contours[i], false );
             for(int j=0;j< contours[i].size();j++){
 
-                if(contours[i][j].y<=min[i].y){
+                if(contours[i][j].y>=min[i].y){
                     min[i].y=contours[i][j].y;
                     min[i].x=contours[i][j].x;
                 }
@@ -220,6 +220,9 @@ void imageCallback(const sensor_msgs::ImageConstPtr &msg)
             drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
             circle( drawing, mc[i], 4, color, -1, 8, 0 );
         }
+        //circle(drawing, Point(100,100),4,Scalar(100,100,100),-1,8,0);
+        //circle(drawing, Point(100,150),4,Scalar(255,255,255),-1,8,0);
+
 
         namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
         imshow( "Contours", drawing );

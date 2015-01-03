@@ -295,7 +295,8 @@ int main(int argc, char** argv)
     
     pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
     //ros::spin();
-    ros::Rate r(1000);
+
+    ros::Rate r(100);
     while(ros::ok())
     {
         ros::spinOnce();

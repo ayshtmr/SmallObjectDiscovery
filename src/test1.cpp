@@ -112,7 +112,8 @@ void moveTo(double a, double b, double alpha)
     // start_pub.publish(t);
 
     pub2.publish(goal);
-    waitKey(10000);
+    waitKey(30000);
+    
 
 }
 
@@ -318,7 +319,7 @@ int main(int argc, char** argv)
         // spinner.spin();
         if(flag1&&flag2)
             callit(msga, msgb);
-        waitKey(10000);
+        waitKey(30000);
         ros::Rate r(30000);
         r.sleep();
     }

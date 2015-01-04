@@ -23,6 +23,7 @@
 namespace enc = sensor_msgs::image_encodings;
 using namespace cv;
 using namespace std;
+float heightofcam=0.3;
 
 typedef union U_FloatParse {
     float float_data;
@@ -39,7 +40,7 @@ Mat im;
 Mat src_gray;
 int thresh=100;
 int h;
-int heightofcam=0.25;
+//int heightofcam=0.25;
 int h1=480;
 ros::Publisher goal_pub;
 ros::Publisher pub2;
@@ -106,11 +107,12 @@ void moveTo(double a, double b, double alpha)
     goal.pose.position.x=a;
     goal.pose.position.y=b;
     goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
-    std_msgs::Bool t;
-    t.data=true;
-    start_pub.publish(t);
+    // std_msgs::Bool t;
+    // t.data=true;
+    // start_pub.publish(t);
 
-    goal_pub.publish(goal);
+    pub2.publish(goal);
+    waitKey(10000);
 
 }
 
@@ -135,16 +137,16 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
 
 }
 
-void depthCallback(const sensor_msgs::ImageConstPtr& msg1){
+/*void depthCallback(const sensor_msgs::ImageConstPtr& msg1){
 
     msgc=msg1;
     flag3=1;
     std::cout<<"Depth <-"<<endl;
 
-}
+}*/
 
 
-void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
+void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4/*, const sensor_msgs::ImageConstPtr& msg5*/)
 {
 
     
@@ -237,7 +239,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         imshow( "Contours", drawing );
         waitKey(1000);
 
-            for (int j = 0; j < 1 ; ++j)
+        /*    for (int j = 0; j < 1 ; ++j)
             {
                 //minimum point of the contour
                 float depth = ReadDepthData(int(mc[j].y),int(mc[j].x), msg5);
@@ -251,7 +253,16 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 
                 goal.push_back(Point2f(-x1,z1));
 
-            }
+            }*/
+               for (int k=0;k<1;k++)
+               {
+                float obj_height=mc[k].y;
+                float z1=focal*heightofcam/obj_height;
+                float x1=mc[k].x*heightofcam/obj_height;
+                goal.push_back(Point2f(-x1,z1));
+
+
+               } 
 
 
         
@@ -262,14 +273,15 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     std::cout<<oy<<endl;    
     resolution=msg4.info.resolution;
     h=msg4.info.height;
-    ox=int (ox/resolution);
-    oy=int (oy/resolution);
+    //ox=int (ox/resolution);
+    oy=oy/resolution;
     oy=h-oy;
+    oy= oy*resolution;
     ROS_INFO("Get Goal");
     //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
     double beta=atan2(goal[0].y-oy,goal[0].x-ox);
-    double x_inner=(goal[0].x-ox)*resolution;
-    double y_inner=(goal[0].y-oy)*resolution;
+    double x_inner=(goal[0].x-ox);
+    double y_inner=(goal[0].y-oy);
     moveTo(x_inner, y_inner, beta);
     //px=x;py=y;
    
@@ -290,13 +302,13 @@ int main(int argc, char** argv)
     //sync.registerCallback(boost::bind(&callback,_1,_2));
     image_transport::Subscriber sub2=it1.subscribe("/camera/rgb/image_color",1,callback);
     //image_transport::Subscriber sub1 = it.subscribe("camera/rgb/image_color", 1, callback);
-    image_transport::Subscriber sub1 = it.subscribe("camera/depth/image", 1, depthCallback);
+    //image_transport::Subscriber sub1 = it.subscribe("camera/depth/image", 1, depthCallback);
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);
     
     pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
     //ros::spin();
 
-    ros::Rate r(100);
+    
     while(ros::ok())
     {
         ros::spinOnce();
@@ -304,11 +316,13 @@ int main(int argc, char** argv)
 
         // ros::MultiThreadedSpinner spinner(3); // Use 4 threads
         // spinner.spin();
-        if(flag1&&flag2&&flag3)
-            callit(msga, msgb, msgc);
+        if(flag1&&flag2)
+            callit(msga, msgb);
+        waitKey(10000);
+        ros::Rate r(30000);
         r.sleep();
     }
+
     return 0;
-    //image=imread("folder_name",0);
 
 }

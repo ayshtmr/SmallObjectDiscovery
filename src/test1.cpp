@@ -107,7 +107,7 @@ void moveTo(double a, double b, double alpha)
 
 
     pub2.publish(goal);
-    waitKey(30000);
+    waitKey(15000);
     
 
 }
@@ -183,7 +183,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         mu[i] = moments( contours[i], false );
         for(int j=0;j< contours[i].size();j++){
 
-            if(contours[i][j].y>=min[i].y){
+            if(contours[i][j].y>min[i].y){
                 min[i].y=contours[i][j].y;
                 min[i].x=contours[i][j].x;
             }
@@ -195,7 +195,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     //vector<Point2f> mc( contours.size() );
     for( int i = 0; i < contours.size(); i++ )
     { 
-        if(contourArea(contours[i])>500)
+        if(contourArea(contours[i])>100)
          {
             
             //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
@@ -230,30 +230,50 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         cout<<endl<<"Depth "<<z1<<endl<<"X "<<x1<<endl;
         goal.push_back(Point2f(x1,z1));
     
-    } 
+    }    
+
+
+
+    // for (int k=0;k<counter;k++)
+    // {   
+    //     waitKey(30000);
+    //     ROS_INFO("Get Goal %d",k);
+    //     double beta=atan2(goal[k].x,goal[k].y);
+    //     double x_inner=(goal[k].x);
+    //     double y_inner=(goal[k].y);
+    //     moveTo(x_inner, y_inner, beta);
+    // }
     
-
-    
-
-    ox=-1*msg4.info.origin.position.x;
-    oy=-1*msg4.info.origin.position.y;
-    std::cout<<ox<<endl;
-    std::cout<<oy<<endl;    
-    resolution=msg4.info.resolution;
-    h=msg4.info.height;
-
-    ROS_INFO("Get Goal");
-    double beta=atan2(goal[0].x,goal[0].y);
-    double x_inner=(goal[0].x);
-    double y_inner=(goal[0].y);
-    moveTo(x_inner, y_inner, beta);
-
-
+    for(int a=0;a<counter;a++)
+        {
+            waitKey(15000);
+            if (a==0)
+            {
+               ROS_INFO("Get Goal : %d",a);
+        //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
+               double beta=atan2(goal[a].x,goal[a].y);
+               double x_inner=(goal[a].x);
+               double y_inner=(goal[a].y);
+               moveTo(x_inner, y_inner, beta); /* code */
+            }
+            else
+            {
+               ROS_INFO("Get Goal : %d",a);
+               double xa,ya,tempang;
+               tempang=atan2(goal[a-1].x,goal[a-1].y);
+               xa=goal[a].x-goal[a-1].x;ya=goal[a].y-goal[a-1].y;
+        //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
+               double beta=atan2(xa*cos(tempang)-ya*sin(tempang),xa*sin(tempang)+ya*cos(tempang));
+               double x_inner=xa*cos(tempang)-ya*sin(tempang)/*(goal[a].x-goal[a-1].x)*/;
+               double y_inner=xa*sin(tempang)+ya*cos(tempang)/*(goal[a].y-goal[a-1].y)*/;
+               moveTo(x_inner, y_inner, beta);
+            }
         
-
+    }
 
 
 }
+
 
 int main(int argc, char** argv)
 {
@@ -265,13 +285,12 @@ int main(int argc, char** argv)
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);   
     pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
 
-    
     while(ros::ok())
     {
         ros::spinOnce();
         if(flag1&&flag2)
             callit(msga, msgb);
-        waitKey(30000);
+        //waitKey(30000);
         ros::Rate r(30000);
         r.sleep();
     }

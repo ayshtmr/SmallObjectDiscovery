@@ -8,6 +8,7 @@
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rospack_genmsg.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rospack_genmsg_libexe.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rospack_gensrv.dir
+/home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/seg1.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test-future.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test-results.dir

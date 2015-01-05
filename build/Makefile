@@ -226,6 +226,19 @@ rospack_gensrv/fast:
 .PHONY : rospack_gensrv/fast
 
 #=============================================================================
+# Target rules for targets named seg1
+
+# Build rule for target.
+seg1: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 seg1
+.PHONY : seg1
+
+# fast build rule for target.
+seg1/fast:
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/build
+.PHONY : seg1/fast
+
+#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -304,6 +317,21 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
+src/seg.o:
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.o
+.PHONY : src/seg.o
+
+# target to preprocess a source file
+src/seg.i:
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.i
+.PHONY : src/seg.i
+
+# target to generate assembly for a file
+src/seg.s:
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.s
+.PHONY : src/seg.s
+
+# target to build an object file
 src/test1.o:
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.o
 .PHONY : src/test1.o
@@ -336,12 +364,16 @@ help:
 	@echo "... rospack_genmsg"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
+	@echo "... seg1"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... test1"
 	@echo "... tests"
+	@echo "... src/seg.o"
+	@echo "... src/seg.i"
+	@echo "... src/seg.s"
 	@echo "... src/test1.o"
 	@echo "... src/test1.i"
 	@echo "... src/test1.s"

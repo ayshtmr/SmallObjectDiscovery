@@ -362,6 +362,41 @@ clean: CMakeFiles/rospack_gensrv.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/seg1.dir
+
+# All Build rule for target.
+CMakeFiles/seg1.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/depend
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  1
+	@echo "Built target seg1"
+.PHONY : CMakeFiles/seg1.dir/all
+
+# Include target in all.
+all: CMakeFiles/seg1.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/seg1.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/seg1.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 0
+.PHONY : CMakeFiles/seg1.dir/rule
+
+# Convenience name for target.
+seg1: CMakeFiles/seg1.dir/rule
+.PHONY : seg1
+
+# clean rule for target.
+CMakeFiles/seg1.dir/clean:
+	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/clean
+.PHONY : CMakeFiles/seg1.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/seg1.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/test.dir
 
 # All Build rule for target.
@@ -492,7 +527,7 @@ clean: CMakeFiles/test-results-run.dir/clean
 CMakeFiles/test1.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/depend
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  2
 	@echo "Built target test1"
 .PHONY : CMakeFiles/test1.dir/all
 

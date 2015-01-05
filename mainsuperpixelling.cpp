@@ -10,7 +10,7 @@
 #define RADIUS 40
 #define FDIM 2
 #define NO_OF_CLUSTER 5
-#define NO_OF_SUPERP 320
+#define NO_OF_SUPERP 50
 
 using namespace std;
 using namespace cv;

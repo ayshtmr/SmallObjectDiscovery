@@ -198,8 +198,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         if(contourArea(contours[i])>100)
          {
             
-            //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
-            mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
+            if(i==0)
+                mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
+            else
+                if(mc[i].y!=mc[i-1].y)
+                    mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
             cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<endl;
             counter++;
         }

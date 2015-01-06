@@ -64,7 +64,7 @@ void moveTo(double a, double b, double alpha)
 
 
     pub2.publish(goal);
-    waitKey(15000);
+    waitKey(30000);
     
 
 }
@@ -75,7 +75,7 @@ void goalCallback(const nav_msgs::OccupancyGrid &msg2)
 {
     msgb=msg2;
     flag1=1;
-    std::cout<<"Map <-"<<endl;
+    std::cout<<endl<<"Map <-";
 
 }
 
@@ -83,7 +83,7 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
 {
     msga=msg;
     flag2=1;
-    std::cout<<"Img <-"<<endl;
+    std::cout<<endl<<"Img <-";
 
 }
 
@@ -97,7 +97,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
         switch(ctr)
         {
-            case 1 : moveTo(0.00,1.00,0.00);
+            case 1 : moveTo(0.00,0.50,0.00);
                     break;
             case 2 : moveTo(0.00,0.00,1.0467);
                     break;
@@ -106,8 +106,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
             case 4 : moveTo(0.00,0.00,1.0467);
                     break;
         }
-    ctr=(ctr+1)%4;
+    cout<<endl<<"Old explore_var "<<explore_var<<" Old ctr "<<ctr;
+    ctr=(ctr+1)%5;
     explore_var=0;
+    cout<<endl<<"New explore_var "<<explore_var<<" New ctr "<<ctr;
     return;
     }
 
@@ -147,42 +149,66 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
 
+    vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
-
     for( int i = 0; i < contours.size(); i++ )
-    {   
-        min.push_back(Point(-1,-1));
-
+    {
+        min[i].x=-1;
+        min[i].y=-1;
+        mu[i] = moments( contours[i], false );
         for(int j=0;j< contours[i].size();j++){
-
             if(contours[i][j].y>min[i].y){
-                min.pop_back();
-                min.push_back(Point(contours[i][j].x,contours[i][j].y));
+                min[i].y=contours[i][j].y;
+                min[i].x=contours[i][j].x;
             }
         }
     }
 
     
 
-    vector<Point2f>mc;
-    for( int i = 0; i < contours.size(); i++ )
-    { 
-        if(contourArea(contours[i])>100)
-         {
+    // vector<Point2f>mc;
+    // for( int i = 0; i < contours.size(); i++ )
+    // { 
+    //     if(contourArea(contours[i])>100)
+    //      {
             
-            if(i==0)
-                mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
-            else
-                if(min[i].y!=min[i-1].y)
-                    mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
-            cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<endl;
-            counter++;
-        }
+    //         //if(i==0){
+    //             mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
+    //             cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<" Vec size "<<mc.size()<<endl;
+    //             counter++;
+    //         //}
+    //         // else
+    //         //     if(min[i].y!=min[i-1].y){
+    //         //         mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
+    //         //         cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<" Vec size "<<mc.size()<<endl;
+    //         //         counter++;
+    //         //     }
+
+            
+    //         if(int(mc[i].x)==0){
+    //             mc.pop_back();
+    //             counter--;
+    //             cout<<" Vec size "<<mc.size()<<" Counter: "<<counter<<endl;
+    //         }
+    //     }
         
+    // }
+
+    std::vector<Point> mc;
+    for( int i = 0; i < contours.size(); i++ )
+    {
+        if(contourArea(contours[i])>100)
+        {
+        //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+        mc.push_back(Point(min[i].x, min[i].y) );
+        cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
+        counter++;
+        }
     }
 
     if(mc.size()==0){
         explore_var=1;
+        cout<<endl<<"Returning as no object found";
         return;
     }
 
@@ -202,21 +228,48 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     imshow( "Contours", drawing );
     waitKey(1000);
 
+    for(int k=0;k<counter;k++){
+        cout<<endl<<mc[k].x<<" "<<mc[k].y;
+    }
+    cout<<endl;
+
+    int counter1=0;
+
     for (int k=0;k<counter;k++)
     {
         float obj_height=mc[k].y-240;
         float z1=focal*heightofcam/obj_height;
         z1 = z1*z1*z1*0.2549 - z1*z1*0.9714 + z1*2.9818 - 1.0008;
         float x1=(320-mc[k].x)*z1/focal;
-        cout<<endl<<"Depth "<<z1<<endl<<"X "<<x1<<endl;
-        goal.push_back(Point2f(x1,z1));
+
+        if(mc[k].y!=0){
+
+            if(k==0){
+
+                cout<<endl<<"Depth "<<z1<<endl<<"X "<<x1<<endl;
+                goal.push_back(Point2f(x1,z1));
+                counter1++;
+            }
+        else
+            if(mc[k].y!=mc[k-1].y){
+                cout<<endl<<"Depth "<<z1<<endl<<"X "<<x1<<endl;
+                goal.push_back(Point2f(x1,z1));
+                counter1++;
+            }
+        }
+        else{
+            explore_var=1;
+            cout<<endl<<"Objects found but not relevant"<<endl;
+            return;
+        }
+
     
     }    
 
     
-    for(int a=0;a<counter;a++)
+    for(int a=0;a<counter1;a++)
         {
-            waitKey(15000);
+            waitKey(5000);
             if (a==0)
             {
                ROS_INFO("Get Goal : %d",a);

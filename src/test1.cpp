@@ -164,35 +164,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         }
     }
 
-    
 
-    // vector<Point2f>mc;
-    // for( int i = 0; i < contours.size(); i++ )
-    // { 
-    //     if(contourArea(contours[i])>100)
-    //      {
-            
-    //         //if(i==0){
-    //             mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
-    //             cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<" Vec size "<<mc.size()<<endl;
-    //             counter++;
-    //         //}
-    //         // else
-    //         //     if(min[i].y!=min[i-1].y){
-    //         //         mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
-    //         //         cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<" Vec size "<<mc.size()<<endl;
-    //         //         counter++;
-    //         //     }
-
-            
-    //         if(int(mc[i].x)==0){
-    //             mc.pop_back();
-    //             counter--;
-    //             cout<<" Vec size "<<mc.size()<<" Counter: "<<counter<<endl;
-    //         }
-    //     }
-        
-    // }
 
     std::vector<Point> mc;
     for( int i = 0; i < contours.size(); i++ )

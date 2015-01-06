@@ -30,7 +30,7 @@ typedef union U_FloatParse {
 
 sensor_msgs::ImageConstPtr msga,msgc;
 nav_msgs::OccupancyGrid msgb;
-vector<Point2f>mc;
+
 
 int counter;
 Mat im;
@@ -47,50 +47,7 @@ float resolution;
 float heightofcam=0.5;
 double xg,yg,theta;
 int focal=530;//focal length kinect-RGB
-
-
-
-int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::ImageConstPtr depth_image)
-{
-    // If position is invalid
-    if ((height_pos >= depth_image->height) || (width_pos >= depth_image->width))
-        return -1;
-    int index = (height_pos*depth_image->step) + (width_pos*(depth_image->step/depth_image->width));
-    // If data is 4 byte floats (rectified depth image)
-    if ((depth_image->step/depth_image->width) == 4) {
-        U_FloatConvert depth_data;
-        int i, endian_check = 1;
-        // If big endian
-        if ((depth_image->is_bigendian && (*(char*)&endian_check != 1)) ||  // Both big endian
-                ((!depth_image->is_bigendian) && (*(char*)&endian_check == 1))) { // Both lil endian
-            for (i = 0; i < 4; i++)
-                depth_data.byte_data[i] = depth_image->data[index + i];
-            // Make sure data is valid (check if NaN)
-            if (depth_data.float_data == depth_data.float_data)
-                return int(depth_data.float_data*1000);
-            return -1;  // If depth data invalid
-        }
-        // else, one little endian, one big endian
-        for (i = 0; i < 4; i++)
-            depth_data.byte_data[i] = depth_image->data[3 + index - i];
-        // Make sure data is valid (check if NaN)
-        if (depth_data.float_data == depth_data.float_data)
-            return int(depth_data.float_data*1000);
-        return -1;  // If depth data invalid
-    }
-    // Otherwise, data is 2 byte integers (raw depth image)
-    int temp_val;
-    // If big endian
-    if (depth_image->is_bigendian)
-        temp_val = (depth_image->data[index] << 8) + depth_image->data[index + 1];
-        // If little endian
-    else
-        temp_val = depth_image->data[index] + (depth_image->data[index + 1] << 8);
-    // Make sure data is valid (check if NaN)
-    if (temp_val == temp_val)
-        return temp_val;
-    return -1;
-}
+int explore_var=0;
 
 
 void moveTo(double a, double b, double alpha)
@@ -120,8 +77,6 @@ void goalCallback(const nav_msgs::OccupancyGrid &msg2)
     flag1=1;
     std::cout<<"Map <-"<<endl;
 
-
-
 }
 
 void callback( const sensor_msgs::ImageConstPtr &msg)
@@ -129,14 +84,33 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
     msga=msg;
     flag2=1;
     std::cout<<"Img <-"<<endl;
- 
 
 }
 
+int ctr=1;
 
 
 void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4/*, const sensor_msgs::ImageConstPtr& msg5*/)
 {
+
+    if(explore_var){
+
+        switch(ctr)
+        {
+            case 1 : moveTo(0.00,1.00,0.00);
+                    break;
+            case 2 : moveTo(0.00,0.00,1.0467);
+                    break;
+            case 3 : moveTo(0.00,0.00,-2.0933);
+                    break;        
+            case 4 : moveTo(0.00,0.00,1.0467);
+                    break;
+        }
+    ctr=(ctr+1)%4;
+    explore_var=0;
+    return;
+    }
+
 
     if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
     waitKey(10);
@@ -173,26 +147,24 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
 
 
-    vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
 
     for( int i = 0; i < contours.size(); i++ )
     {   
-        min[i].x=-1;
-        min[i].y=-1;
-        mu[i] = moments( contours[i], false );
+        min.push_back(Point(-1,-1));
+
         for(int j=0;j< contours[i].size();j++){
 
             if(contours[i][j].y>min[i].y){
-                min[i].y=contours[i][j].y;
-                min[i].x=contours[i][j].x;
+                min.pop_back();
+                min.push_back(Point(contours[i][j].x,contours[i][j].y));
             }
         }
     }
 
     
 
-    //vector<Point2f> mc( contours.size() );
+    vector<Point2f>mc;
     for( int i = 0; i < contours.size(); i++ )
     { 
         if(contourArea(contours[i])>100)
@@ -201,7 +173,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
             if(i==0)
                 mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
             else
-                if(mc[i].y!=mc[i-1].y)
+                if(min[i].y!=min[i-1].y)
                     mc.push_back(Point2f( float(min[i].x), float(min[i].y) ) );
             cout<<"x"<<" "<<int (mc[i].x)<<"y"<<" "<<int (mc[i].y)<<endl;
             counter++;
@@ -209,8 +181,14 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         
     }
 
+    if(mc.size()==0){
+        explore_var=1;
+        return;
+    }
+
 
     Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+
     for( int i = 0; i< contours.size(); i++ )
     {
         Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
@@ -235,17 +213,6 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     
     }    
 
-
-
-    // for (int k=0;k<counter;k++)
-    // {   
-    //     waitKey(30000);
-    //     ROS_INFO("Get Goal %d",k);
-    //     double beta=atan2(goal[k].x,goal[k].y);
-    //     double x_inner=(goal[k].x);
-    //     double y_inner=(goal[k].y);
-    //     moveTo(x_inner, y_inner, beta);
-    // }
     
     for(int a=0;a<counter;a++)
         {
@@ -270,10 +237,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double x_inner=xa*cos(tempang)-ya*sin(tempang)/*(goal[a].x-goal[a-1].x)*/;
                double y_inner=xa*sin(tempang)+ya*cos(tempang)/*(goal[a].y-goal[a-1].y)*/;
                moveTo(x_inner, y_inner, beta);
-            }
-        
+            }    
+   
     }
 
+    ROS_INFO("Goals over \n");
 
 }
 
@@ -291,9 +259,10 @@ int main(int argc, char** argv)
     while(ros::ok())
     {
         ros::spinOnce();
+
         if(flag1&&flag2)
             callit(msga, msgb);
-        //waitKey(30000);
+
         ros::Rate r(30000);
         r.sleep();
     }

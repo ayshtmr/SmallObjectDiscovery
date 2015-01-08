@@ -39,7 +39,7 @@ typedef union U_FloatParse {
 
 sensor_msgs::ImageConstPtr msga,msgc;
 nav_msgs::OccupancyGrid msgb;
-ros::Publisher nextgoal_pub;
+//ros::Publisher nextgoal_pub;
 
 
 int counter;
@@ -109,8 +109,8 @@ void moveTo(double a, double b, double alpha)
     goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
 
 
-    pub2.publish(goal);
-    waitKey(30000);
+   // pub2.publish(goal);
+   // waitKey(30000);
     
 
 }
@@ -131,6 +131,58 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
     flag2=1;
     std::cout<<endl<<"Img <-";
 
+}
+
+void depthcallback( const sensor_msgs::ImageConstPtr &msg1)
+{
+    msgc=msg1;
+    flag3=1;
+    std::cout<<endl<<"Depth <-";
+
+}
+
+
+
+int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::ImageConstPtr depth_image)
+{
+    // If position is invalid
+    if ((height_pos >= depth_image->height) || (width_pos >= depth_image->width))
+        return -1;
+    int index = (height_pos*depth_image->step) + (width_pos*(depth_image->step/depth_image->width));
+    // If data is 4 byte floats (rectified depth image)
+    if ((depth_image->step/depth_image->width) == 4) {
+        U_FloatConvert depth_data;
+        int i, endian_check = 1;
+        // If big endian
+        if ((depth_image->is_bigendian && (*(char*)&endian_check != 1)) ||  // Both big endian
+                ((!depth_image->is_bigendian) && (*(char*)&endian_check == 1))) { // Both lil endian
+            for (i = 0; i < 4; i++)
+                depth_data.byte_data[i] = depth_image->data[index + i];
+            // Make sure data is valid (check if NaN)
+            if (depth_data.float_data == depth_data.float_data)
+                return int(depth_data.float_data*1000);
+            return -1;  // If depth data invalid
+        }
+        // else, one little endian, one big endian
+        for (i = 0; i < 4; i++)
+            depth_data.byte_data[i] = depth_image->data[3 + index - i];
+        // Make sure data is valid (check if NaN)
+        if (depth_data.float_data == depth_data.float_data)
+            return int(depth_data.float_data*1000);
+        return -1;  // If depth data invalid
+    }
+    // Otherwise, data is 2 byte integers (raw depth image)
+    int temp_val;
+    // If big endian
+    if (depth_image->is_bigendian)
+        temp_val = (depth_image->data[index] << 8) + depth_image->data[index + 1];
+        // If little endian
+    else
+        temp_val = depth_image->data[index] + (depth_image->data[index + 1] << 8);
+    // Make sure data is valid (check if NaN)
+    if (temp_val == temp_val)
+        return temp_val;
+    return -1;  // If depth data invalid
 }
 
 int ctr=1;
@@ -237,7 +289,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
         }   
     }   
                 //int mid_count=count;
-    cout<<" flag 4 "<<endl; 
+    //cout<<" flag 4 "<<endl; 
     for(int j=0;j<new_image.cols;j++)
     {
         for( int i=0;i<new_image.rows;i++)
@@ -530,15 +582,15 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     //***************************************
     
     //cout<<" flag 12 "<<endl;  
-    cv::namedWindow("blank1");
+    //cv::namedWindow("blank1");
     //cv::imshow("blank1",occ); 
-    cv::imwrite("/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/occ.jpg",occ);
+    cv::imwrite("occ.jpg",occ);
 
-    cv::namedWindow("blank2");
-    cv::imwrite("/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/occ1.jpg",occ1);
+    //cv::namedWindow("blank2");
+    cv::imwrite("occ1.jpg",occ1);
     
 //  String filename="/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/result"+z+".jpg";
-    char filename[100]="/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/result";
+    char filename[100]="result";
 //  filename=filename.c_str();
     char extension[10] = ".jpg";
   //      extension=extension.c_str();  
@@ -547,7 +599,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     //string filename="/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/result"<<num.str()<<".jpg";
     sprintf(filename,"%s%d%s",filename,z,extension);
     //cout<<    
-    cv::namedWindow("blank");
+   // cv::namedWindow("blank");
     //cv::imshow("blank",new_image);    
         
     cv::imwrite(filename,new_image);
@@ -581,12 +633,12 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     ROS_INFO(" NEXT GOAL x:%lf y:%lf ",next_goal.pose.position.x,next_goal.pose.position.y);
     
     
-    nextgoal_pub.publish(next_goal);
+    //pub2.publish(next_goal);
 
      x_last = x_next;
      y_last = y_next;
     //cout<<" flag sleep now "<<endl;   
-    sleep(30);  
+    waitKey(40000);  
     //cout<<" flag sleep over "<<endl;
 
     //*************************************************
@@ -604,14 +656,26 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 
 //int ctr=1;
 
+int loop=0;
+int depth=5000;
 
-void callit(const sensor_msgs::ImageConstPtr msg3/*, const nav_msgs::OccupancyGrid msg4/*, const sensor_msgs::ImageConstPtr& msg5*/)
-{
+void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
+{   
+    if(loop>1)
+        depth = ReadDepthData(240,320, msg5);
+    loop++;
+
+
+    // if(depth<=2)
+    //     explore_var=1;
 
     if(explore_var){
-        flag1=0;
-        moveTo(0.000,0.000,9.4200);
+        //flag1=0;
+        // moveTo(0.000,0.000,1.00);
+        // moveTo(0.000,0.000,-1.00);
+        explore_var=0;
         chatterCallback2(msgb);
+        moveTo(0.0,0.0,3.14);
         
     return;
     }
@@ -628,7 +692,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3/*, const nav_msgs::OccupancyGr
     system("./run");
     
 
-    std::cout<<endl<<"Returned"<<endl;
+    //std::cout<<endl<<"Returned"<<endl;
 
     Mat src; Mat src_gray;
     int thresh = 255;
@@ -636,7 +700,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3/*, const nav_msgs::OccupancyGr
     RNG rng(12345);
 
     src=imread("blob.jpg");
-    cout<<"blob"<<endl;
+    cout<<endl<<"blob image generated"<<endl;
 
     int counter=0;
     
@@ -649,7 +713,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3/*, const nav_msgs::OccupancyGr
 
     Canny( src_gray, canny_output, thresh, thresh*2, 3 );
 
-    // if(findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) ))
+    findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
     //     return;
 
 
@@ -668,39 +732,42 @@ void callit(const sensor_msgs::ImageConstPtr msg3/*, const nav_msgs::OccupancyGr
         }
     }
 
-    int mx,my;
-    int minarea=9999;
-  for (int i = 0; i < contours.size(); ++i)
-    {
-        if(minarea>contourArea(contours[i]))
-            {minarea=contourArea(contours[i]);
+    //int mx,my;
+    //nt minarea=9999;
+  //for (int i = 0; i < contours.size(); ++i)
+    //{
+     //   if(minarea>contourArea(contours[i]))
+       //     {minarea=contourArea(contours[i]);
              //minareacontour.push_back(Point2f(min[i].x,min[i].y));
-             mx=min[i].x;
-             my=min[i].y;   /*for(int j=0;j<contours[i].size();j++)
-                {minareacontour[i][j].x=contours[i][j].x;
-                minareacontour[i][j].y=contours[i][j].y;
-                }*/
-            }
+         //    mx=min[i].x;
+            // my=min[i].y;   /*for(int j=0;j<contours[i].size();j++)
+              //  {minareacontour[i][j].x=contours[i][j].x;
+                //minareacontour[i][j].y=contours[i][j].y;
+                //}*/
+            //}
 
-        /* code */
-    }
-    cout<<"minarea"<<" "<<minarea<<" "<<"mx"<<" "<<mx<<" "<<"my"<<" "<<my<<endl;
+       //} /* code */
+    
+    //cout<<"minarea"<<" "<<minarea<<" "<<"mx"<<" "<<mx<<" "<<"my"<<" "<<my<<endl;
 
     std::vector<Point> mc;
     for( int i = 0; i < contours.size(); i++ )
     {
-        if(contourArea(contours[i])>100&&min[i].y>my)
-        {
-        //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
-        mc.push_back(Point(min[i].x, min[i].y) );
-        cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
-        counter++;
-        }
+        if(depth>2000 && depth!=-1)
+            if(contourArea(contours[i])>500 /*&& min[i].y>300*/)
+            {
+                //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+                mc.push_back(Point(min[i].x, min[i].y) );
+                cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
+                counter++;
+            }
     }
 
     if(mc.size()==0){
         explore_var=1;
         cout<<endl<<"Returning as no object found";
+        if(depth<2000)
+            cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
         return;
     }
 
@@ -799,6 +866,7 @@ int main(int argc, char** argv)
     image_transport::ImageTransport it(n1);
     image_transport::ImageTransport it1(n1);
     image_transport::Subscriber sub2=it1.subscribe("/camera/rgb/image_color",1,callback);
+    image_transport::Subscriber sub = it.subscribe("camera/depth/image", 1, depthcallback);
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);   
     pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
 
@@ -806,10 +874,10 @@ int main(int argc, char** argv)
     {
         ros::spinOnce();
 
-        if(flag1&&flag2)
-            callit(msga);
+        if(flag1&&flag2&&flag3)
+            callit(msga,msgb,msgc);
 
-        ros::Rate r(30000);
+        ros::Rate r(30);
         r.sleep();
     }
 

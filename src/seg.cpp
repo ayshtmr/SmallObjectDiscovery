@@ -28,7 +28,7 @@ endwait = clock () + seconds * CLOCKS_PER_SEC ;
 while (clock() < endwait) {}
 }
 
-float heightofcam=0.5;
+float heightofcam=0.33;
 vector<Point2f>mc;
 int counter;
 Mat src_gray;
@@ -116,15 +116,15 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
     // int posX = dM10 / dArea;
     // int posY = dM01 / dArea;   
 
-    posY -= 240 ;
+     posY -= 240 ;
 
-    float z1=focal*heightofcam/posY;
-    z1 = z1*z1*z1*0.2549 - z1*z1*0.9714 + z1*2.9818 - 1.0008;
+     float z1=focal*heightofcam/posY;
+     z1 = z1*z1*z1*0.4025 - z1*z1*0.7903 + z1*2.4968 - 0.3587;
 
-    //float x1= posX*heightofcam/posY;
-    float x1=(320-posX)*z1/focal;
+    // //float x1= posX*heightofcam/posY;
+    // float x1=(320-posX)*z1/focal;
 
-    cout<<endl<<"Depth "<<z1<<endl<<"X "<<x1;
+     cout<<endl<<"Depth "<<z1<<endl;
 
 
 

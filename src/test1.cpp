@@ -22,6 +22,7 @@
 #include <sstream>
 #include <std_msgs/Header.h>
 #include <nav_msgs/MapMetaData.h>
+#include <actionlib_msgs/GoalStatusArray.h>
 
 #define NO_CLUSTERS 8
 #define ATTEMPTS 10
@@ -39,10 +40,12 @@ typedef union U_FloatParse {
 
 sensor_msgs::ImageConstPtr msga,msgc;
 nav_msgs::OccupancyGrid msgb;
+actionlib_msgs::GoalStatusArrayConstPtr msgd;
 //ros::Publisher nextgoal_pub;
 
 
 int counter;
+int ind;
 Mat im;
 Mat src_gray;
 int thresh=100;
@@ -54,7 +57,7 @@ ros::Publisher start_pub;
 double x,y,zx=1.0;
 int ox,oy;
 float resolution;
-float heightofcam=0.5;
+float heightofcam=0.33;
 double xg,yg,theta;
 int focal=530;//focal length kinect-RGB
 int explore_var=0;
@@ -109,19 +112,19 @@ void moveTo(double a, double b, double alpha)
     goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
 
 
-   // pub2.publish(goal);
-   // waitKey(30000);
+    pub2.publish(goal);
+    waitKey(40000);
     
 
 }
 
-int flag1=0,flag2=0,flag3=0;
+int flag1=0,flag2=0,flag3=0,flag4=0;
 
 void goalCallback(const nav_msgs::OccupancyGrid &msg2)
 {
     msgb=msg2;
     flag1=1;
-    std::cout<<endl<<"Map <-";
+    //std::cout<<endl<<"Map <-";
 
 }
 
@@ -129,7 +132,7 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
 {
     msga=msg;
     flag2=1;
-    std::cout<<endl<<"Img <-";
+    //std::cout<<endl<<"Img <-";
 
 }
 
@@ -137,8 +140,15 @@ void depthcallback( const sensor_msgs::ImageConstPtr &msg1)
 {
     msgc=msg1;
     flag3=1;
-    std::cout<<endl<<"Depth <-";
+    //std::cout<<endl<<"Depth <-";
 
+}
+void actioncallback(const actionlib_msgs::GoalStatusArrayConstPtr &msg3)
+{
+    msgd=msg3;
+
+    //std::cout<<endl<<"Status <-";
+    flag4=1;  
 }
 
 
@@ -147,7 +157,7 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
 {
     // If position is invalid
     if ((height_pos >= depth_image->height) || (width_pos >= depth_image->width))
-        return -1;
+        return -1;  
     int index = (height_pos*depth_image->step) + (width_pos*(depth_image->step/depth_image->width));
     // If data is 4 byte floats (rectified depth image)
     if ((depth_image->step/depth_image->width) == 4) {
@@ -185,11 +195,12 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
     return -1;  // If depth data invalid
 }
 
-int ctr=1;
+int ctr=1,toggle=0;
 
 void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 {
-                            
+                 
+    toggle=1;           
     geometry_msgs::PoseStamped next_goal;       
     //cout<<" flag 1 "<<endl;
     
@@ -633,13 +644,12 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     ROS_INFO(" NEXT GOAL x:%lf y:%lf ",next_goal.pose.position.x,next_goal.pose.position.y);
     
     
-    //pub2.publish(next_goal);
+    pub2.publish(next_goal);
+    //waitKey(2000);
+    waitKey(40000); 
 
      x_last = x_next;
      y_last = y_next;
-    //cout<<" flag sleep now "<<endl;   
-    waitKey(40000);  
-    //cout<<" flag sleep over "<<endl;
 
     //*************************************************
     
@@ -656,29 +666,63 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 
 //int ctr=1;
 
-int loop=0;
+int loop1=0,loop2=0;
 int depth=5000;
+actionlib_msgs::GoalStatus goalStatus;
 
-void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
-{   
-    if(loop>1)
-        depth = ReadDepthData(240,320, msg5);
-    loop++;
-
-
-    // if(depth<=2)
-    //     explore_var=1;
-
+void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)//, const actionlib_msgs::GoalStatusArrayConstPtr& msg6)
+{  
+    // flag4=0;
+    // flag3=0;
+    // flag2=0;
+    // flag1=0;
     if(explore_var){
         //flag1=0;
         // moveTo(0.000,0.000,1.00);
         // moveTo(0.000,0.000,-1.00);
         explore_var=0;
-        chatterCallback2(msgb);
-        moveTo(0.0,0.0,3.14);
+        chatterCallback2(msg4);
+        //moveTo(0.0,0.0,3.14);
         
     return;
     }
+
+   //  loop2++;
+   // // cout<<endl<<"list empty? "<<msgd->status_list.empty();
+   //  if(loop2>0)
+   //  if (!msgd->status_list.empty())
+   //  {
+   //      goalStatus = msgd->status_list[0];
+   //      if(int(goalStatus.status==3)){
+   //          cout<<endl<<"Status is: "<<goalStatus.status;
+   //          waitKey(10000);
+
+   //          cout<<endl<<"REACHED GOAL";
+   //          if(toggle){
+   //              toggle=0;
+   //              return;
+   //          }
+   //          //goalStatus.status=0;
+   //      }
+   //      else {
+   //         // cout<<endl<<"Reaching goal";
+   //          return;
+   //      }
+   //      // else
+   //      //     return;
+   //  }
+
+    if(loop1>1)
+    {   depth = ReadDepthData(240,320, msg5);
+        cout<<"depth"<<depth<<endl;
+        loop1++;
+    }
+
+
+    // if(depth<=2)
+    //     explore_var=1;
+
+    
 
 
     if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
@@ -701,8 +745,6 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     src=imread("blob.jpg");
     cout<<endl<<"blob image generated"<<endl;
-
-    int counter=0;
     
     cvtColor( src, src_gray, CV_BGR2GRAY );
     blur( src_gray, src_gray, Size(3,3) );
@@ -715,6 +757,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     findContours( canny_output, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, Point(0, 0) );
     //     return;
+
+    if(!contours.size()){
+        explore_var=1;
+        return;
+    }
 
 
     vector<Moments> mu(contours.size() );
@@ -732,43 +779,58 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         }
     }
 
-    //int mx,my;
-    //nt minarea=9999;
-  //for (int i = 0; i < contours.size(); ++i)
-    //{
-     //   if(minarea>contourArea(contours[i]))
-       //     {minarea=contourArea(contours[i]);
-             //minareacontour.push_back(Point2f(min[i].x,min[i].y));
-         //    mx=min[i].x;
-            // my=min[i].y;   /*for(int j=0;j<contours[i].size();j++)
-              //  {minareacontour[i][j].x=contours[i][j].x;
-                //minareacontour[i][j].y=contours[i][j].y;
-                //}*/
-            //}
+  //   int mx,my=9999;
+  //   int minarea=9999;
+  // for (int i = 0; i < contours.size(); i++)
+  //   {
+  //       if(minarea>contourArea(contours[i]))
+  //           {minarea=contourArea(contours[i]);
+  //            ind=i;//minareacontour.push_back(Point2f(min[i].x,min[i].y));
+  //        //    mx=min[i].x;
+  //           // my=min[i].y;   /*for(int j=0;j<contours[i].size();j++)
+  //             //  {minareacontour[i][j].x=contours[i][j].x;
+  //               //minareacontour[i][j].y=contours[i][j].y;
+  //               //}*/
+  //           }
 
-       //} /* code */
+  //      } /* code */
     
     //cout<<"minarea"<<" "<<minarea<<" "<<"mx"<<" "<<mx<<" "<<"my"<<" "<<my<<endl;
 
+    int counter=0;
     std::vector<Point> mc;
     for( int i = 0; i < contours.size(); i++ )
     {
-        if(depth>2000 && depth!=-1)
-            if(contourArea(contours[i])>500 /*&& min[i].y>300*/)
+        if(depth>1000){
+            if(contourArea(contours[i])>100 /*&& min[i].y>300*/)
             {
-                //mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+                
+                /*for(int j=0;j<contours[ind].size();j++)
+                {
+                if((min[i].x-contours[ind][j].x)<1)
+                {
+                mx=contours[ind][j].x;
+                my=contours[ind][j].y;
+
+
+                }
+                }
+                if(min[i].y>my){//mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
+                cout<<"yes"<<endl;*/
                 mc.push_back(Point(min[i].x, min[i].y) );
                 cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
             }
+            //}
     }
 
     if(mc.size()==0){
         explore_var=1;
         cout<<endl<<"Returning as no object found";
-        if(depth<2000)
+        if(depth<1000)
             cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
         return;
+    }
     }
 
 
@@ -785,11 +847,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     vector<Point2f>goal;
     namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
     imshow( "Contours", drawing );
-    waitKey(1000);
+    waitKey(10);
 
-    for(int k=0;k<counter;k++){
-        cout<<endl<<mc[k].x<<" "<<mc[k].y;
-    }
+    // for(int k=0;k<counter;k++){
+    //     cout<<endl<<mc[k].x<<" "<<mc[k].y;
+    // }
     cout<<endl;
 
     int counter1=0;
@@ -798,7 +860,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     {
         float obj_height=mc[k].y-240;
         float z1=focal*heightofcam/obj_height;
-        z1 = z1*z1*z1*0.2549 - z1*z1*0.9714 + z1*2.9818 - 1.0008;
+        z1 = z1*z1*z1*0.4025 - z1*z1*0.7903 + z1*2.4968 - 0.3587;
         float x1=(320-mc[k].x)*z1/focal;
 
         if(mc[k].y!=0){
@@ -828,10 +890,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     
     for(int a=0;a<counter1;a++)
         {
-            waitKey(5000);
+
             if (a==0)
             {
-               ROS_INFO("Get Goal : %d",a);
+               ROS_INFO("Object found: Get Goal : %d",a);
         //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
                double beta=atan2(goal[a].x,goal[a].y);
                double x_inner=(goal[a].x);
@@ -840,11 +902,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
             }
             else
             {
-               ROS_INFO("Get Goal : %d",a);
+               ROS_INFO("Object found: Get Goal : %d",a);
                double xa,ya,tempang;
                tempang=atan2(goal[a-1].x,goal[a-1].y);
                xa=goal[a].x-goal[a-1].x;ya=goal[a].y-goal[a-1].y;
-        //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
+               //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
                double beta=atan2(xa*cos(tempang)-ya*sin(tempang),xa*sin(tempang)+ya*cos(tempang));
                double x_inner=xa*cos(tempang)-ya*sin(tempang)/*(goal[a].x-goal[a-1].x)*/;
                double y_inner=xa*sin(tempang)+ya*cos(tempang)/*(goal[a].y-goal[a-1].y)*/;
@@ -868,14 +930,15 @@ int main(int argc, char** argv)
     image_transport::Subscriber sub2=it1.subscribe("/camera/rgb/image_color",1,callback);
     image_transport::Subscriber sub = it.subscribe("camera/depth/image", 1, depthcallback);
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);   
+    //ros::Subscriber sub4=n1.subscribe<actionlib_msgs::GoalStatusArray>("/move_base/status", 1, actioncallback);
     pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
 
     while(ros::ok())
     {
         ros::spinOnce();
 
-        if(flag1&&flag2&&flag3)
-            callit(msga,msgb,msgc);
+        if(flag1&&flag2&&flag3)//&&flag4)
+            callit(msga,msgb,msgc);//,msgd);
 
         ros::Rate r(30);
         r.sleep();

@@ -23,6 +23,8 @@
 #include <std_msgs/Header.h>
 #include <nav_msgs/MapMetaData.h>
 #include <actionlib_msgs/GoalStatusArray.h>
+#include <actionlib/client/simple_action_client.h>
+#include <move_base_msgs/MoveBaseAction.h>
 
 #define NO_CLUSTERS 8
 #define ATTEMPTS 10
@@ -37,6 +39,7 @@ typedef union U_FloatParse {
     unsigned char byte_data[4];
 } U_FloatConvert;
 
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
 sensor_msgs::ImageConstPtr msga,msgc;
 nav_msgs::OccupancyGrid msgb;
@@ -103,17 +106,25 @@ void moveTo(double a, double b, double alpha)
 {
     ROS_INFO("Move to (%lf, %lf, %lf)", a, b, alpha);
     cout << "Move" << a <<" "<< b;
-    geometry_msgs::PoseStamped goal;
-    goal.header.frame_id="base_footprint";
-    goal.header.stamp=ros::Time::now();
+    //geometry_msgs::PoseStamped goal;
+    MoveBaseClient ac("move_base", true);
+    while(!ac.waitForServer(ros::Duration(5.0)))
+    {
+            ROS_INFO("Waiting for the move_base action server to come up");
+        }
 
-    goal.pose.position.x=b;
-    goal.pose.position.y=a;
-    goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
 
+    move_base_msgs::MoveBaseGoal goal;
+    goal.target_pose.header.frame_id="base_footprint";
+    goal.target_pose.header.stamp=ros::Time::now();
 
-    pub2.publish(goal);
-    waitKey(40000);
+    goal.target_pose.pose.position.x=b;
+    goal.target_pose.pose.position.y=a;
+    goal.target_pose.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
+    ROS_INFO("Sending goal");
+    ac.sendGoal(goal);
+    ac.waitForResult();
+    return;
     
 
 }
@@ -124,7 +135,7 @@ void goalCallback(const nav_msgs::OccupancyGrid &msg2)
 {
     msgb=msg2;
     flag1=1;
-    //std::cout<<endl<<"Map <-";
+    std::cout<<endl<<"Map <-";
 
 }
 
@@ -132,7 +143,7 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
 {
     msga=msg;
     flag2=1;
-    //std::cout<<endl<<"Img <-";
+    std::cout<<endl<<"Img <-";
 
 }
 
@@ -140,7 +151,7 @@ void depthcallback( const sensor_msgs::ImageConstPtr &msg1)
 {
     msgc=msg1;
     flag3=1;
-    //std::cout<<endl<<"Depth <-";
+    std::cout<<endl<<"Depth <-";
 
 }
 void actioncallback(const actionlib_msgs::GoalStatusArrayConstPtr &msg3)
@@ -201,8 +212,9 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 {
                  
     toggle=1;           
-    geometry_msgs::PoseStamped next_goal;       
+    //geometry_msgs::PoseStamped next_goal;       
     //cout<<" flag 1 "<<endl;
+    move_base_msgs::MoveBaseGoal next_goal;
     
     int a2 = point1.info.width; 
     int b2 = point1.info.height;
@@ -427,23 +439,14 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     //cout<<" flag 9 "<<endl;   
     int min_i;
     min_i=get_min(dis,NO_CLUSTERS);     
-        
-    //cout<<" flag 9.1 "<< d[min_i]<<"  "<< e[min_i]<< endl;    
+
     y_nex= ((x_prev)-(d[min_i]))*point1.info.resolution;//point1.info.resolution;
     //cout<<" flag 9.2 "<<endl;     
     x_nex= ((y_prev)-(e[min_i]))*point1.info.resolution;//point1.info.resolution;
-    //cout<<" flag 9.3 "<<endl;     
-    
-    //float x_next = -x_nex; // REQ FOR ODOM FRAME CALCULATIONS
-    //float y_next = y_nex; //
      
     float x_next=(e[min_i]-origin_y_tl)*point1.info.resolution;   //FOR DIRECT MAP FRAME
     float y_next= (-(d[min_i]-origin_x_tl))*point1.info.resolution;
-    
-    //cout<<" flag 9 "<<endl;   
-    //cout<<"x_next: "<<x_next<<" y_next: "<<y_next<<std::endl;
-    //cout<<" flag 10 "<<endl;
-    
+
     int c0=0;                               //NEW ADDITION TO CODE : TO BE TESTED
     int c1=0;
     int c2=0;
@@ -592,9 +595,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
         
     //***************************************
     
-    //cout<<" flag 12 "<<endl;  
-    //cv::namedWindow("blank1");
-    //cv::imshow("blank1",occ); 
+
     cv::imwrite("occ.jpg",occ);
 
     //cv::namedWindow("blank2");
@@ -604,10 +605,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     char filename[100]="result";
 //  filename=filename.c_str();
     char extension[10] = ".jpg";
-  //      extension=extension.c_str();  
-    //std::strcpy(extension,extension.c_str());
-    //std::osstringstream filename;
-    //string filename="/workspace/karthik/RRC/ros_workspace/frontier_explore/maps/result"<<num.str()<<".jpg";
+
     sprintf(filename,"%s%d%s",filename,z,extension);
     //cout<<    
    // cv::namedWindow("blank");
@@ -621,108 +619,74 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     
     if (x_last==x_next)
     {
-    next_goal.header.frame_id="/map";
-    next_goal.pose.position.x=0.0;
-    next_goal.pose.position.y=0.0;
-    next_goal.pose.position.z=0.0;
-    next_goal.pose.orientation.x=0.0;
-    next_goal.pose.orientation.y=0.0;
-    next_goal.pose.orientation.z=0.0;
-    next_goal.pose.orientation.w=1.0;   
+    next_goal.target_pose.header.frame_id="/map";
+    next_goal.target_pose.pose.position.x=0.0;
+    next_goal.target_pose.pose.position.y=0.0;
+    next_goal.target_pose.pose.position.z=0.0;
+    next_goal.target_pose.pose.orientation.x=0.0;
+    next_goal.target_pose.pose.orientation.y=0.0;
+    next_goal.target_pose.pose.orientation.z=0.0;
+    next_goal.target_pose.pose.orientation.w=1.0;   
     }
     else
     {
-    next_goal.header.frame_id="/map";
-    next_goal.pose.position.x=x_next;
-    next_goal.pose.position.y=y_next;
-    next_goal.pose.position.z=0.0;
-    next_goal.pose.orientation.x=0.0;
-    next_goal.pose.orientation.y=0.0;
-    next_goal.pose.orientation.z=0.0;
-    next_goal.pose.orientation.w=1.0;       
+    next_goal.target_pose.header.frame_id="/map";
+    next_goal.target_pose.pose.position.x=x_next;
+    next_goal.target_pose.pose.position.y=y_next;
+    next_goal.target_pose.pose.position.z=0.0;
+    next_goal.target_pose.pose.orientation.x=0.0;
+    next_goal.target_pose.pose.orientation.y=0.0;
+    next_goal.target_pose.pose.orientation.z=0.0;
+    next_goal.target_pose.pose.orientation.w=1.0;       
     }
-    ROS_INFO(" NEXT GOAL x:%lf y:%lf ",next_goal.pose.position.x,next_goal.pose.position.y);
-    
-    
-    pub2.publish(next_goal);
-    //waitKey(2000);
-    waitKey(40000); 
+    ROS_INFO(" NEXT GOAL x:%lf y:%lf ",next_goal.target_pose.pose.position.x,next_goal.target_pose.pose.position.y);
+    MoveBaseClient ac("move_base", true);
+    while(!ac.waitForServer(ros::Duration(5.0)))
+    {
+            ROS_INFO("Waiting for the move_base action server to come up");
+        }
+    ROS_INFO("Sending goal");
+    ac.sendGoal(next_goal);
+    ac.waitForResult();
+    x_last = x_next;
+    y_last = y_next;
+    //cout<<" flag sleep now "<<endl;   
+    // sleep(30);  
+     return;   
 
-     x_last = x_next;
-     y_last = y_next;
-
-    //*************************************************
-    
-                                //flag=1;
-                                //}
-                                //break;
-                                //cv::waitKey(0);
-                                //ros::spinOnce();          
-                                //}
-}  
-
+}
 
 
 
 //int ctr=1;
 
 int loop1=0,loop2=0;
-int depth=5000;
+int depth=9999;
 actionlib_msgs::GoalStatus goalStatus;
 
 void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)//, const actionlib_msgs::GoalStatusArrayConstPtr& msg6)
 {  
     // flag4=0;
-    // flag3=0;
-    // flag2=0;
+    flag3=0;
+    flag2=0;
     // flag1=0;
+    loop1++;
     if(explore_var){
-        //flag1=0;
-        // moveTo(0.000,0.000,1.00);
-        // moveTo(0.000,0.000,-1.00);
+
         explore_var=0;
-        chatterCallback2(msg4);
-        //moveTo(0.0,0.0,3.14);
-        
-    return;
+        chatterCallback2(msg4);    
+        return;
     }
-
-   //  loop2++;
-   // // cout<<endl<<"list empty? "<<msgd->status_list.empty();
-   //  if(loop2>0)
-   //  if (!msgd->status_list.empty())
-   //  {
-   //      goalStatus = msgd->status_list[0];
-   //      if(int(goalStatus.status==3)){
-   //          cout<<endl<<"Status is: "<<goalStatus.status;
-   //          waitKey(10000);
-
-   //          cout<<endl<<"REACHED GOAL";
-   //          if(toggle){
-   //              toggle=0;
-   //              return;
-   //          }
-   //          //goalStatus.status=0;
-   //      }
-   //      else {
-   //         // cout<<endl<<"Reaching goal";
-   //          return;
-   //      }
-   //      // else
-   //      //     return;
-   //  }
+     loop2++;
+    if(loop2>0)
+        waitKey(10000);
 
     if(loop1>1)
     {   depth = ReadDepthData(240,320, msg5);
-        cout<<"depth"<<depth<<endl;
-        loop1++;
+        cout<<endl<<"depth"<<depth<<endl;
     }
-
-
-    // if(depth<=2)
-    //     explore_var=1;
-
-    
+    if(depth==-1)
+        depth=9999;
 
 
     if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
@@ -801,7 +765,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     std::vector<Point> mc;
     for( int i = 0; i < contours.size(); i++ )
     {
-        if(depth>1000){
+        if(depth>1300){
             if(contourArea(contours[i])>100 /*&& min[i].y>300*/)
             {
                 
@@ -821,14 +785,15 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
             }
-            //}
+            }
     }
 
     if(mc.size()==0){
         explore_var=1;
         cout<<endl<<"Returning as no object found";
-        if(depth<1000)
+        if(depth<1300){
             cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
+            moveTo(0.00,0.00,0.32);
         return;
     }
     }
@@ -931,7 +896,7 @@ int main(int argc, char** argv)
     image_transport::Subscriber sub = it.subscribe("camera/depth/image", 1, depthcallback);
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback);   
     //ros::Subscriber sub4=n1.subscribe<actionlib_msgs::GoalStatusArray>("/move_base/status", 1, actioncallback);
-    pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
+    //pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
 
     while(ros::ok())
     {

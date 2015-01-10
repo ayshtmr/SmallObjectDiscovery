@@ -669,7 +669,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     // flag4=0;
     flag3=0;
     flag2=0;
-    // flag1=0;
+    //flag1=0;
     loop1++;
     if(explore_var){
 
@@ -677,9 +677,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         chatterCallback2(msg4);    
         return;
     }
-     loop2++;
-    if(loop2>0)
-        waitKey(10000);
+    //  loop2++;
+    // if(loop2>0)
+    //     waitKey(10000);
 
     if(loop1>1)
     {   depth = ReadDepthData(240,320, msg5);
@@ -765,7 +765,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     std::vector<Point> mc;
     for( int i = 0; i < contours.size(); i++ )
     {
-        if(depth>1300){
+        if(depth>1500)
             if(contourArea(contours[i])>100 /*&& min[i].y>300*/)
             {
                 
@@ -785,17 +785,18 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
             }
-            }
+
     }
 
     if(mc.size()==0){
         explore_var=1;
         cout<<endl<<"Returning as no object found";
-        if(depth<1300){
+        if(depth<1500){
             cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
             moveTo(0.00,0.00,0.32);
+        }
         return;
-    }
+
     }
 
 

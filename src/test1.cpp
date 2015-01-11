@@ -835,9 +835,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         chatterCallback2(msg4);    
         return;
     }
-    //  loop2++;
-    // if(loop2>0)
-    //     waitKey(10000);
+     loop2++;
+    if(loop2>0)
+        waitKey(20000);
 
     if(loop1>1)
     {   depth = ReadDepthData(240,320, msg5);
@@ -860,24 +860,36 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     //std::cout<<endl<<"Returned"<<endl;
 
-    Mat src; Mat src_gray;
+    Mat src; Mat src_gray,src2,src3,src4;
     int thresh = 255;
     int max_thresh = 255;
     RNG rng(12345);
 
 
-    src_gray=imread("blob.jpg", 0);
+    src=imread("blob.jpg", 0);
     //cvtColor( src, src, CV_BGR2GRAY );
-    blur( src_gray, src_gray, Size(3,3) );
+    //blur( src_gray, src_gray, Size(3,3) );
     cout<<endl<<"blob image generated"<<endl;
 
     Mat src1;
     src1=imread("pc.jpg",0);
-     Mat elem=getStructuringElement(MORPH_RECT,Size(15,15),Point(7,7));
-     dilate( src1, src1, elem );
+     Mat elem=getStructuringElement(MORPH_RECT,Size(35,35),Point(17,17));
+     //dilate( src1, src1, elem );
    // cout<<"blob channels "<<src_gray.rows<<" "<<src_gray.cols<<" pc channels "<<src1.rows<<" "<<src1.cols;
 
-     bitwise_and(src1,src_gray,src_gray);
+     bitwise_xor(src,src1,src2);
+     imwrite("xor.jpg",src_gray);
+     waitKey(100);
+     bitwise_or(src2,src1,src3);
+     imwrite("xor2.jpg",src_gray);
+     waitKey(100);
+     add(src3,src1,src_gray);
+     imwrite("xor3.jpg",src_gray);
+     waitKey(100);
+     erode(src_gray,src_gray,elem);
+     imwrite("xor4.jpg",src_gray);
+     waitKey(100);
+
      imwrite("rr.jpg",src_gray);
      waitKey(100);
 
@@ -901,7 +913,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         return;
     }
 
-
+    for (int i = 0; i < contours.size(); ++i)
+    {
+        cout<<" "<<contourArea(contours[i])<<endl;/* code */
+    }
     vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
     for( int i = 0; i < contours.size(); i++ )
@@ -985,13 +1000,13 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
 
     vector<Point2f>goal;
-    namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
-    imshow( "Contours", drawing );
-    waitKey(10);
+    //namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
+    imwrite( "Contours.jpg", drawing );
+    waitKey(100);
 
-    // for(int k=0;k<counter;k++){
-    //     cout<<endl<<mc[k].x<<" "<<mc[k].y;
-    // }
+    for(int k=0;k<counter;k++){
+        cout<<endl<<mc[k].x<<" "<<mc[k].y;
+    }
     cout<<endl;
 
     int counter1=0;

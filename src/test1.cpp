@@ -161,6 +161,7 @@ void moveTo(double a, double b, double alpha)
     ROS_INFO("Sending goal");
     ac.sendGoal(goal);
     ac.waitForResult();
+    waitKey(10000);
     return;
     
 
@@ -190,133 +191,6 @@ void depthcallback( const sensor_msgs::ImageConstPtr &msg1)
     flag3=1;
     std::cout<<endl<<"Depth <-";
 
-}
-
-void pclcallback(const sensor_msgs::PointCloud2::ConstPtr& msg)
-{
-    msgd=msg;
-
-    //std::cout<<endl<<"Status <-";
-    flag4=1;  
-}
-
-cv::Mat image(640,480,CV_8UC3,cv::Scalar(0));
-
-
-void callback(const sensor_msgs::PointCloud2::ConstPtr& msg)
-{
-    cloudptr cloud_in (new cloudxyz());
-    pcl::fromROSMsg(*msg, *cloud_in);
-    
-    cloudptr cloud (new cloudxyz());
-
-    pcl::PassThrough<Point1> pass_;
-    pass_.setFilterFieldName("z");
-    pass_.setFilterLimits(0.0, 3.0);
-    pass_.setInputCloud(cloud_in);
-    pass_.filter(*cloud);
-
-    
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_f (new pcl::PointCloud<pcl::PointXYZRGB>);
-
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZRGB>);
-    cloud_filtered=cloud;   
-    
-    // Create the segmentation object for the planar model and set all the parameters
-    pcl::SACSegmentation<pcl::PointXYZRGB> seg;
-    pcl::PointIndices::Ptr inliers (new pcl::PointIndices);
-    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_plane (new pcl::PointCloud<pcl::PointXYZRGB> ());
-    pcl::PCDWriter writer;
-    seg.setOptimizeCoefficients (true);
-    seg.setModelType (pcl::SACMODEL_PERPENDICULAR_PLANE);
-    seg.setMethodType (pcl::SAC_RANSAC);
-    seg.setAxis(Eigen::Vector3f(0,-1,0));
-        seg.setEpsAngle(  40.0f * (M_PI/180.0f) );
-    seg.setMaxIterations (100);
-    seg.setDistanceThreshold (0.02);
-
-    
-        // Segment the largest planar component from the remaining cloud
-        seg.setInputCloud (cloud_filtered);
-        seg.segment (*inliers, *coefficients);
-        
-        // Extract the planar inliers from the input cloud
-        pcl::ExtractIndices<pcl::PointXYZRGB> extract;
-        extract.setInputCloud (cloud_filtered);
-        extract.setIndices (inliers);
-        extract.setNegative (false);
-
-        // Write the planar inliers to disk
-        extract.filter (*cloud_plane);
-        //std::cout << "PointCloud representing the planar component: " << cloud_plane->points.size () << " data points." << std::endl;
-
-        // Remove the planar inliers, extract the rest
-        extract.setNegative (true);
-        extract.filter (*cloud_f);
-        cloud_filtered = cloud_f;
-    
-
-    //Remove the outliers
-    cloudptr object (new cloudxyz());
-    pcl::StatisticalOutlierRemoval<pcl::PointXYZRGB> sor;
-    sor.setInputCloud (cloud_filtered);
-    sor.setMeanK(50);
-    sor.setStddevMulThresh (1.0);
-    sor.filter(*object);
-
-    //vfh estimation of the each object cluster
-
-    pcl::PointCloud<pcl::Normal>::Ptr normals (new pcl::PointCloud<pcl::Normal> ());
-    pcl::search::KdTree<pcl::PointXYZRGB>::Ptr normals_tree_ (new pcl::search::KdTree<pcl::PointXYZRGB> ());
-    pcl::NormalEstimation<pcl::PointXYZRGB, pcl::Normal> normal_;
-    normal_.setKSearch(10);
-    normal_.setSearchMethod(normals_tree_);
-    normal_.setInputCloud(object);
-    normal_.compute(*normals);
-    //      cout<<"Normals for vfh is computed"<<endl;
-        cout<<"The vfh signature are computed"<<endl;
-
-    cv::Mat image_1(640,480,CV_8UC3,cv::Scalar(0));
-    pcl::PointCloud<pcl::PointXYZRGB> cloud_1;
-    
-    cout<<cloud_plane->points.size()<<endl; 
-    cv::Mat occ(480,640,CV_8UC1,cv::Scalar(0));
-
-    float x=0,y=0,z=0;
-    float image_x=0; 
-    float image_y=0;
-    float focus=525;
-    float cx=319.5;
-    float cy=239.5;
-    float f=5000;
-    cout<<"hi "<<cloud_plane->points.size();
-    for(int i=1; i<cloud_plane->points.size(); i++)
-    {
-        x=cloud_plane->points[i].x;
-        y=cloud_plane->points[i].y;
-        z=cloud_plane->points[i].z;
-        //cout << "     "<< x<<"    "<<y<<"     "<<z<<endl;
-        image_x=x/z*focus;
-        image_y=y/z*focus;
-        //cout <<"image_x:  "<<image_x<<"   image_y:    "<<image_y<<endl;   
-        image_x=cx+image_x; 
-        image_y=cy+image_y; 
-
-        occ.at<uchar>(image_y,image_x)=255;
-        
-
-    }
-
-    if(cloud_plane->points.size () > 40000)
-    {
-    cv::imwrite("pc.jpg",occ);
-    }
-    
-    //k++;
-    
-    sleep(5);
-    cout<<"sleeping";
 }
 
 
@@ -804,11 +678,12 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
         }
     ROS_INFO("Sending goal");
     ac.sendGoal(next_goal);
-    ac.waitForResult();
+     ac.waitForResult();
     x_last = x_next;
     y_last = y_next;
     //cout<<" flag sleep now "<<endl;   
-    // sleep(30);  
+    // sleep(30);
+    waitKey(10000);  
      return;   
 
 }
@@ -821,13 +696,12 @@ int loop1=0,loop2=0;
 int depth=9999;
 actionlib_msgs::GoalStatus goalStatus;
 
-void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5, const sensor_msgs::PointCloud2::ConstPtr& msg6)
+void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
 {  
-    flag4=0;
-    flag3=0;
+
     flag2=0;
-    callback(msg6);
-    //flag1=0;
+    flag3=0;
+
     loop1++;
     if(explore_var){
 
@@ -835,9 +709,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         chatterCallback2(msg4);    
         return;
     }
-     loop2++;
-    if(loop2>0)
-        waitKey(20000);
+    //  loop2++;
+    // if(loop2>0)
+    //     waitKey(20000);
 
     if(loop1>1)
     {   depth = ReadDepthData(240,320, msg5);
@@ -866,36 +740,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     RNG rng(12345);
 
 
-    src=imread("blob.jpg", 0);
-    //cvtColor( src, src, CV_BGR2GRAY );
+    src=imread("blob.jpg");
+    cvtColor( src, src_gray, CV_BGR2GRAY );
     //blur( src_gray, src_gray, Size(3,3) );
     cout<<endl<<"blob image generated"<<endl;
 
-    Mat src1;
-    src1=imread("pc.jpg",0);
-     Mat elem=getStructuringElement(MORPH_RECT,Size(35,35),Point(17,17));
-     //dilate( src1, src1, elem );
-   // cout<<"blob channels "<<src_gray.rows<<" "<<src_gray.cols<<" pc channels "<<src1.rows<<" "<<src1.cols;
-
-     bitwise_xor(src,src1,src2);
-     imwrite("xor.jpg",src_gray);
-     waitKey(100);
-     bitwise_or(src2,src1,src3);
-     imwrite("xor2.jpg",src_gray);
-     waitKey(100);
-     add(src3,src1,src_gray);
-     imwrite("xor3.jpg",src_gray);
-     waitKey(100);
-     erode(src_gray,src_gray,elem);
-     imwrite("xor4.jpg",src_gray);
-     waitKey(100);
-
-     imwrite("rr.jpg",src_gray);
-     waitKey(100);
-
-    //src=imread("blob.jpg");
-    //cout<<endl<<"blob image generated"<<endl;
-    
 
     Mat canny_output;
     vector<vector<Point> > contours;
@@ -913,69 +762,63 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         return;
     }
 
-    for (int i = 0; i < contours.size(); ++i)
-    {
-        cout<<" "<<contourArea(contours[i])<<endl;/* code */
-    }
+    //cout<<" src gray: "<<src_gray.channels();
+    // for (int i = 0; i < contours.size(); ++i)
+    // {
+    //     cout<<" "<<contourArea(contours[i])<<endl;/* code */
+    // }
     vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
+    vector<Point> mc1(contours.size()); 
+
     for( int i = 0; i < contours.size(); i++ )
     {
         min[i].x=-1;
         min[i].y=-1;
         mu[i] = moments( contours[i], false );
+        mc1.push_back(Point(mu[i].m10/mu[i].m00,mu[i].m01/mu[i].m00));
         for(int j=0;j< contours[i].size();j++){
             if(contours[i][j].y>min[i].y){
                 min[i].y=contours[i][j].y;
                 min[i].x=contours[i][j].x;
             }
         }
+        
     }
 
-  //   int mx,my=9999;
-  //   int minarea=9999;
-  // for (int i = 0; i < contours.size(); i++)
-  //   {
-  //       if(minarea>contourArea(contours[i]))
-  //           {minarea=contourArea(contours[i]);
-  //            ind=i;//minareacontour.push_back(Point2f(min[i].x,min[i].y));
-  //        //    mx=min[i].x;
-  //           // my=min[i].y;   /*for(int j=0;j<contours[i].size();j++)
-  //             //  {minareacontour[i][j].x=contours[i][j].x;
-  //               //minareacontour[i][j].y=contours[i][j].y;
-  //               //}*/
-  //           }
 
-  //      } /* code */
-    
-    //cout<<"minarea"<<" "<<minarea<<" "<<"mx"<<" "<<mx<<" "<<"my"<<" "<<my<<endl;
+    // for (int i = 0; i < contours.size(); ++i)
+    // {
+    //     mc1.push_back(Point(mu[i].m10/mu[i].m00,mu[i].m01/mu[i].m00));
+    // }
 
     int counter=0;
+
     std::vector<Point> mc;
+
     for( int i = 0; i < contours.size(); i++ )
     {
         if(depth>1500)
-            if(contourArea(contours[i])>100 /*&& min[i].y>300*/)
+            if(contourArea(contours[i])>100 )
+               if(src_gray.at<uchar>((min[i].y-1),min[i].x)==0)
             {
-                
-                /*for(int j=0;j<contours[ind].size();j++)
-                {
-                if((min[i].x-contours[ind][j].x)<1)
-                {
-                mx=contours[ind][j].x;
-                my=contours[ind][j].y;
-
-
-                }
-                }
-                if(min[i].y>my){//mc.push_back(Point2f( mu[i].m10/mu[i].m00 , mu[i].m01/mu[i].m00 ));
-                cout<<"yes"<<endl;*/
                 mc.push_back(Point(min[i].x, min[i].y) );
                 cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
             }
+            // else
+            //     cout<<"KATTA";
 
     }
+
+    // for (int i = 0; i < src_gray.rows; ++i)
+    // {
+    //     for (int j = 0; j < src_gray.cols; ++j)
+    //     {
+    //         cout<<" "<<int(src_gray.at<uchar>(i,j));
+    //     }
+    //     cout<<endl;
+    // }
 
     if(mc.size()==0){
         explore_var=1;
@@ -988,22 +831,49 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     }
 
-
-    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
-
-    for( int i = 0; i< contours.size(); i++ )
+    for (int i = 0; i < mc1.size(); i++)
     {
-        Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
-        drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
-        circle( drawing, mc[i], 4, color, -1, 8, 0 );
+        //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+        if(src_gray.at<uchar>(mc1[i].y,mc1[i].x)==0){
+            cout<<" v: "<<src_gray.at<uchar>(mc1[i].y,mc1[i].x);
+            circle(src,mc1[i],5,Scalar(50,50,50),-1,8,0);
+            //circle( src, mc1[i], 10, Scalar(100,200,200), -1, 8, 0 );
+            cout<<endl<<"MC1 x "<<mc1[i].x<<" MC1 y "<<mc1[i].y<<endl;
+        }
+        
     }
 
 
-    vector<Point2f>goal;
-    //namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
-    imwrite( "Contours.jpg", drawing );
+    //Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for (int i = 0; i < mc.size(); i++)
+    {
+        //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+       circle( src, mc[i], 10, Scalar(100,200,200), -1, 8, 0 );
+       cout<<endl<<"MC x "<<mc[i].x<<" MC y "<<mc[i].y<<endl;
+
+
+        
+    }
+
+    imshow("final",src);
+    waitKey(100);
+    imwrite("final.jpg",src);
     waitKey(100);
 
+    // for( int i = 0; i< contours.size(); i++ )
+    // {
+    //     Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
+    //     drawContours( drawing, contours, i, color, 2, 8, hierarchy, 0, Point() );
+    //     circle( drawing, mc[i], 10, color, -1, 8, 0 );
+    // }
+
+
+    
+    //namedWindow( "Contours", CV_WINDOW_AUTOSIZE );
+    // imwrite( "Contours.jpg", drawing );
+    // waitKey(100);
+
+    vector<Point2f>goal;
     for(int k=0;k<counter;k++){
         cout<<endl<<mc[k].x<<" "<<mc[k].y;
     }
@@ -1049,11 +919,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
             if (a==0)
             {
                ROS_INFO("Object found: Get Goal : %d",a);
-        //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
                double beta=atan2(goal[a].x,goal[a].y);
                double x_inner=(goal[a].x);
                double y_inner=(goal[a].y);
-               moveTo(x_inner, y_inner, beta); /* code */
+               moveTo(x_inner, y_inner, beta);
+               //waitKey(10000);
             }
             else
             {
@@ -1061,11 +931,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double xa,ya,tempang;
                tempang=atan2(goal[a-1].x,goal[a-1].y);
                xa=goal[a].x-goal[a-1].x;ya=goal[a].y-goal[a-1].y;
-               //const geometry_msgs::Quaternion msg_q=msg2.info.origin.orientation;
                double beta=atan2(xa*cos(tempang)-ya*sin(tempang),xa*sin(tempang)+ya*cos(tempang));
-               double x_inner=xa*cos(tempang)-ya*sin(tempang)/*(goal[a].x-goal[a-1].x)*/;
-               double y_inner=xa*sin(tempang)+ya*cos(tempang)/*(goal[a].y-goal[a-1].y)*/;
+               double x_inner=xa*cos(tempang)-ya*sin(tempang);
+               double y_inner=xa*sin(tempang)+ya*cos(tempang);
                moveTo(x_inner, y_inner, beta);
+               //waitKey(10000);
             }    
    
     }
@@ -1085,16 +955,14 @@ int main(int argc, char** argv)
     image_transport::Subscriber sub2=it1.subscribe("/camera/rgb/image_color",1,callback);
     image_transport::Subscriber sub = it.subscribe("camera/depth/image", 1, depthcallback);
     ros::Subscriber sub3=n1.subscribe("map",1,goalCallback); 
-    ros::Subscriber sub4 = n1.subscribe("camera/depth_registered/points", 1, pclcallback);  
-    //ros::Subscriber sub4=n1.subscribe<actionlib_msgs::GoalStatusArray>("/move_base/status", 1, actioncallback);
-    //pub2 = n1.advertise<geometry_msgs::PoseStamped>("move_base_simple/goal",1);
+
 
     while(ros::ok())
     {
         ros::spinOnce();
 
-        if(flag1&&flag2&&flag3&&flag4)
-            callit(msga,msgb,msgc,msgd);
+        if(flag1&&flag2&&flag3)
+            callit(msga,msgb,msgc);
 
         ros::Rate r(30);
         r.sleep();

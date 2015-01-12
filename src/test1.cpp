@@ -859,7 +859,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 moveTo(0.0,0.0,-1.1);
                 break;
             case 2:
-                moveTo(0.0,0.0,1.7);
+                moveTo(0.0,0.0,1.3);
                 break;
             // case 3:
             //     moveTo(0.0,0.0,1.1);
@@ -988,7 +988,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double x_inner=(goal[a].x);
                double y_inner=(goal[a].y);
                moveTo(x_inner, y_inner, beta);
-               waitKey(5000);
+               waitKey(3000);
                //waitKey(10000);
             }
             else
@@ -1001,7 +1001,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double x_inner=xa*cos(tempang)-ya*sin(tempang);
                double y_inner=xa*sin(tempang)+ya*cos(tempang);
                moveTo(x_inner, y_inner, beta);
-               waitKey(5000);
+               waitKey(3000);
             }    
    
     }

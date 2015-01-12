@@ -161,7 +161,7 @@ void moveTo(double a, double b, double alpha)
     ROS_INFO("Sending goal");
     ac.sendGoal(goal);
     ac.waitForResult();
-    waitKey(10000);
+    //waitKey(10000);
     return;
     
 
@@ -237,7 +237,7 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
     return -1;  // If depth data invalid
 }
 
-int ctr=1,toggle=0;
+int ctr=1,toggle=1;
 
 void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 {
@@ -678,12 +678,12 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
         }
     ROS_INFO("Sending goal");
     ac.sendGoal(next_goal);
-     ac.waitForResult();
+    ac.waitForResult();
     x_last = x_next;
     y_last = y_next;
     //cout<<" flag sleep now "<<endl;   
     // sleep(30);
-    waitKey(10000);  
+    //waitKey(2000);  
      return;   
 
 }
@@ -694,19 +694,42 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 
 int loop1=0,loop2=0;
 int depth=9999;
+int rot=1;
 actionlib_msgs::GoalStatus goalStatus;
+
 
 void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
 {  
 
     flag2=0;
-    flag3=0;
+    flag3=0; 
+
+
+
+    // if(loop1>1){
+    //     if((loop1+1)%2){
+    //     moveTo(0.0,0.0,1.10);
+        
+    // }
+    // }
+
+    // if(loop1>1){
+    //     if(loop1%2){
+    //         moveTo(0.0,0.0,-2.2);
+            
+    //     }
+    // }
 
     loop1++;
+
     if(explore_var){
 
+
         explore_var=0;
-        chatterCallback2(msg4);    
+        toggle=1;
+        
+        chatterCallback2(msg4);  
+        // moveTo(0.0,0.0,-2.2);  
         return;
     }
     //  loop2++;
@@ -763,10 +786,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     }
 
     //cout<<" src gray: "<<src_gray.channels();
-    // for (int i = 0; i < contours.size(); ++i)
-    // {
-    //     cout<<" "<<contourArea(contours[i])<<endl;/* code */
-    // }
+    for (int i = 0; i < contours.size(); ++i)
+    {
+        cout<<" "<<contourArea(contours[i])<<endl;/* code */
+    }
     vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
     vector<Point> mc1(contours.size()); 
@@ -799,7 +822,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     for( int i = 0; i < contours.size(); i++ )
     {
         if(depth>1500)
-            if(contourArea(contours[i])>100 )
+            if(contourArea(contours[i])>70 )
                if(src_gray.at<uchar>((min[i].y-1),min[i].x)==0)
             {
                 mc.push_back(Point(min[i].x, min[i].y) );
@@ -821,16 +844,58 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     // }
 
     if(mc.size()==0){
-        explore_var=1;
+
+        //explore_var=1;
         cout<<endl<<"Returning as no object found";
+
+        if(!toggle){
+            explore_var=1;
+            return;
+
+        }
+
+        switch (rot) {
+            case 1:
+                moveTo(0.0,0.0,-1.1);
+                break;
+            case 2:
+                moveTo(0.0,0.0,1.7);
+                break;
+            // case 3:
+            //     moveTo(0.0,0.0,1.1);
+            //     break;
+
+        }
+
+        // if(rot==1)
+        //     moveTo(0.0,0.0,-1.1);
+        // else if(rot==2)
+        //     moveTo(0.0,0.0,2.2);
+        // else
+        //     moveTo(0.0,0.0,1.1);
+
+
+        //moveTo(0.0,0.0,-1.1);
+        rot = (rot+1)%3;
+
+        if(!rot){
+            toggle=0;
+            rot=1;
+        }
+        
+        return;
+
+        
         if(depth<1500){
             cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
-            moveTo(0.00,0.00,0.32);
+            return;
+            //moveTo(0.00,0.00,0.8);
         }
-        return;
+        
 
     }
 
+    
     for (int i = 0; i < mc1.size(); i++)
     {
         //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
@@ -923,6 +988,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double x_inner=(goal[a].x);
                double y_inner=(goal[a].y);
                moveTo(x_inner, y_inner, beta);
+               waitKey(5000);
                //waitKey(10000);
             }
             else
@@ -935,7 +1001,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double x_inner=xa*cos(tempang)-ya*sin(tempang);
                double y_inner=xa*sin(tempang)+ya*cos(tempang);
                moveTo(x_inner, y_inner, beta);
-               //waitKey(10000);
+               waitKey(5000);
             }    
    
     }

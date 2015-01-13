@@ -16,6 +16,16 @@
   <depend package="cv_bridge"/>
   <depend package="image_transport"/>
   <depend package="message_filters"/>
+<depend package="geometry_msgs"/>
+<depend package="nav_msgs"/>
+<depend package="sensor_msgs"/>
+<depend package="actionlib_msgs"/>
+<depend package="move_base_msgs"/>
+<depend package="actionlib"/>
+<depend package="pcl_ros"/>
+
+
+
 
 
 </package>

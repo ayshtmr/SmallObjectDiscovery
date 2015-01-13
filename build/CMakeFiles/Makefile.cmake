@@ -62,6 +62,8 @@ SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/ROSBUILD_gensrv_cpp.dir/DependInfo.cmake"
   "CMakeFiles/ROSBUILD_gensrv_lisp.dir/DependInfo.cmake"
   "CMakeFiles/clean-test-results.dir/DependInfo.cmake"
+  "CMakeFiles/img.dir/DependInfo.cmake"
+  "CMakeFiles/pcl.dir/DependInfo.cmake"
   "CMakeFiles/rosbuild_precompile.dir/DependInfo.cmake"
   "CMakeFiles/rosbuild_premsgsrvgen.dir/DependInfo.cmake"
   "CMakeFiles/rospack_genmsg.dir/DependInfo.cmake"
@@ -73,5 +75,6 @@ SET(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test-results.dir/DependInfo.cmake"
   "CMakeFiles/test-results-run.dir/DependInfo.cmake"
   "CMakeFiles/test1.dir/DependInfo.cmake"
+  "CMakeFiles/testing.dir/DependInfo.cmake"
   "CMakeFiles/tests.dir/DependInfo.cmake"
   )

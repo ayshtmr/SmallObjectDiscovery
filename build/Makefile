@@ -161,6 +161,32 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
+# Target rules for targets named img
+
+# Build rule for target.
+img: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 img
+.PHONY : img
+
+# fast build rule for target.
+img/fast:
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/build
+.PHONY : img/fast
+
+#=============================================================================
+# Target rules for targets named pcl
+
+# Build rule for target.
+pcl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pcl
+.PHONY : pcl
+
+# fast build rule for target.
+pcl/fast:
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/build
+.PHONY : pcl/fast
+
+#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -304,6 +330,19 @@ test1/fast:
 .PHONY : test1/fast
 
 #=============================================================================
+# Target rules for targets named testing
+
+# Build rule for target.
+testing: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 testing
+.PHONY : testing
+
+# fast build rule for target.
+testing/fast:
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/build
+.PHONY : testing/fast
+
+#=============================================================================
 # Target rules for targets named tests
 
 # Build rule for target.
@@ -315,6 +354,36 @@ tests: cmake_check_build_system
 tests/fast:
 	$(MAKE) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
 .PHONY : tests/fast
+
+# target to build an object file
+src/img.o:
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.o
+.PHONY : src/img.o
+
+# target to preprocess a source file
+src/img.i:
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.i
+.PHONY : src/img.i
+
+# target to generate assembly for a file
+src/img.s:
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.s
+.PHONY : src/img.s
+
+# target to build an object file
+src/pcl.o:
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.o
+.PHONY : src/pcl.o
+
+# target to preprocess a source file
+src/pcl.i:
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.i
+.PHONY : src/pcl.i
+
+# target to generate assembly for a file
+src/pcl.s:
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.s
+.PHONY : src/pcl.s
 
 # target to build an object file
 src/seg.o:
@@ -346,6 +415,21 @@ src/test1.s:
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.s
 .PHONY : src/test1.s
 
+# target to build an object file
+src/testing.o:
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.o
+.PHONY : src/testing.o
+
+# target to preprocess a source file
+src/testing.i:
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.i
+.PHONY : src/testing.i
+
+# target to generate assembly for a file
+src/testing.s:
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.s
+.PHONY : src/testing.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -358,6 +442,8 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
+	@echo "... img"
+	@echo "... pcl"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
@@ -370,13 +456,23 @@ help:
 	@echo "... test-results"
 	@echo "... test-results-run"
 	@echo "... test1"
+	@echo "... testing"
 	@echo "... tests"
+	@echo "... src/img.o"
+	@echo "... src/img.i"
+	@echo "... src/img.s"
+	@echo "... src/pcl.o"
+	@echo "... src/pcl.i"
+	@echo "... src/pcl.s"
 	@echo "... src/seg.o"
 	@echo "... src/seg.i"
 	@echo "... src/seg.s"
 	@echo "... src/test1.o"
 	@echo "... src/test1.i"
 	@echo "... src/test1.s"
+	@echo "... src/testing.o"
+	@echo "... src/testing.i"
+	@echo "... src/testing.s"
 .PHONY : help
 
 

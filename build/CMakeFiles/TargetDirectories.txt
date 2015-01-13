@@ -3,6 +3,8 @@
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/clean-test-results.dir
+/home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/img.dir
+/home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/pcl.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rosbuild_precompile.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rosbuild_premsgsrvgen.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/rospack_genmsg.dir
@@ -14,4 +16,5 @@
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test-results.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test-results-run.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/test1.dir
+/home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/testing.dir
 /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles/tests.dir

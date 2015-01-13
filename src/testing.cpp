@@ -51,8 +51,8 @@ void moveTo(double x, double y, double theta)
     goal.header.frame_id="/map";
     goal.header.stamp=ros::Time::now();
 
-    goal.pose.position.x=x;
-    goal.pose.position.y=y;
+    goal.pose.position.x=y;
+    goal.pose.position.y=x;
     goal.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, theta);
 
     goal_pub.publish(goal);
@@ -126,7 +126,7 @@ void GoalCallback( const nav_msgs::OccupancyGrid &msg)
             drawContours( src, contours, i, Scalar(90), 2, 8, hierarchy, 0, Point() );
         }
 
-        int clusterCount = contours.size();//contours.size();
+        int clusterCount = 1;//contours.size();//contours.size();
         //int clusterCount = 1;
         Mat labels;
         //  int attempts = 5;
@@ -211,7 +211,7 @@ void GoalCallback( const nav_msgs::OccupancyGrid &msg)
         const geometry_msgs::Quaternion msg_q=msg.info.origin.orientation;
         //home_theta=tf::getYaw(msg_q);
         //double ln=resolution*sqrt(x*x+y*y);
-        double beta=atan2(y-oy,x-ox);
+        double beta=atan2(x-ox,y-oy);
         //double x_vector=ln*cos(beta+home_theta);
         //double y_vector=ln*sin(beta+home_theta);
         double x_inner=(x-ox)*resolution;
@@ -291,7 +291,7 @@ void GoalCallback( const nav_msgs::OccupancyGrid &msg)
             drawContours( src, contours, i, Scalar(90), 2, 8, hierarchy, 0, Point() );
         }
 
-         int clusterCount = contours.size();//contours.size();
+         int clusterCount = 1;//contours.size();//contours.size();
          //int clusterCount = 1;
          Mat labels;
          //  int attempts = 5;

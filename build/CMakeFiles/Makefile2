@@ -205,6 +205,76 @@ clean: CMakeFiles/clean-test-results.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/img.dir
+
+# All Build rule for target.
+CMakeFiles/img.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/depend
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  1
+	@echo "Built target img"
+.PHONY : CMakeFiles/img.dir/all
+
+# Include target in all.
+all: CMakeFiles/img.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/img.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/img.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 0
+.PHONY : CMakeFiles/img.dir/rule
+
+# Convenience name for target.
+img: CMakeFiles/img.dir/rule
+.PHONY : img
+
+# clean rule for target.
+CMakeFiles/img.dir/clean:
+	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/clean
+.PHONY : CMakeFiles/img.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/img.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/pcl.dir
+
+# All Build rule for target.
+CMakeFiles/pcl.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/depend
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  2
+	@echo "Built target pcl"
+.PHONY : CMakeFiles/pcl.dir/all
+
+# Include target in all.
+all: CMakeFiles/pcl.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/pcl.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/pcl.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 0
+.PHONY : CMakeFiles/pcl.dir/rule
+
+# Convenience name for target.
+pcl: CMakeFiles/pcl.dir/rule
+.PHONY : pcl
+
+# clean rule for target.
+CMakeFiles/pcl.dir/clean:
+	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/clean
+.PHONY : CMakeFiles/pcl.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/pcl.dir/clean
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/rosbuild_precompile.dir
 
 # All Build rule for target.
@@ -368,7 +438,7 @@ clean: CMakeFiles/rospack_gensrv.dir/clean
 CMakeFiles/seg1.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/depend
 	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  3
 	@echo "Built target seg1"
 .PHONY : CMakeFiles/seg1.dir/all
 
@@ -527,7 +597,7 @@ clean: CMakeFiles/test-results-run.dir/clean
 CMakeFiles/test1.dir/all: CMakeFiles/rosbuild_precompile.dir/all
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/depend
 	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  4
 	@echo "Built target test1"
 .PHONY : CMakeFiles/test1.dir/all
 
@@ -553,6 +623,41 @@ CMakeFiles/test1.dir/clean:
 
 # clean rule for target.
 clean: CMakeFiles/test1.dir/clean
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/testing.dir
+
+# All Build rule for target.
+CMakeFiles/testing.dir/all: CMakeFiles/rosbuild_precompile.dir/all
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/depend
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/build
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles  5
+	@echo "Built target testing"
+.PHONY : CMakeFiles/testing.dir/all
+
+# Include target in all.
+all: CMakeFiles/testing.dir/all
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/testing.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/testing.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles 0
+.PHONY : CMakeFiles/testing.dir/rule
+
+# Convenience name for target.
+testing: CMakeFiles/testing.dir/rule
+.PHONY : testing
+
+# clean rule for target.
+CMakeFiles/testing.dir/clean:
+	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/clean
+.PHONY : CMakeFiles/testing.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/testing.dir/clean
 .PHONY : clean
 
 #=============================================================================

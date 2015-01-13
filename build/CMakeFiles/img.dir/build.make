@@ -68,8 +68,27 @@ CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/ros/core/rosbuild/manifest.x
 CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/roslib/manifest.xml
 CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/pluginlib/manifest.xml
 CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/nav_msgs/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/actionlib_msgs/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/actionlib/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/rosbag/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/bond_core/bond/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/bond_core/smclib/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/bond_core/bondcpp/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/share/rosservice/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet_topic_tools/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/common_rosdeps/manifest.xml
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/perception_pcl/pcl_ros/manifest.xml
 CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
 CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/navigation/move_base_msgs/msg_gen/generated
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/bond_core/bond/msg_gen/generated
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/nodelet_core/nodelet/srv_gen/generated
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/msg_gen/generated
+CMakeFiles/img.dir/src/img.o: /opt/ros/fuerte/stacks/dynamic_reconfigure/srv_gen/generated
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/ayush/fuerte_workspace/sandbox/abc/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/img.dir/src/img.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/img.dir/src/img.o -c /home/ayush/fuerte_workspace/sandbox/abc/src/img.cpp

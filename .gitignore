@@ -1,8 +1,5 @@
 # Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+
 
 # Precompiled Headers
 *.gch
@@ -24,5 +21,9 @@
 
 # Executables
 *.exe
-*.out
 *.app
+
+#Extras
+*.jpg
+*.pgm
+*.eps

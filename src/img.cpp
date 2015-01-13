@@ -60,9 +60,9 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
 
 // Image Callback
 void imageCallback(const sensor_msgs::ImageConstPtr& image) {
-    int depth = ReadDepthData(100, 320, image); // Width = 640, Height = 480
+    int depth = ReadDepthData(240, 320, image); // Width = 640, Height = 480
     ROS_INFO("Depth: %d", depth);
-    ROS_INFO("Pixels: %d %d", 100*depth/580, 320*depth/580 );
+
 }
 
 void imageCallback1(const sensor_msgs::ImageConstPtr& image) {
@@ -76,27 +76,26 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "imagegrab");
     ros::NodeHandle n,n2;
-    printf("READY to get image\n");
-    system("./run");
+
 
 
    //  n2.setCallbackQueue(imageCallback1);
 
    //  ros::Subscriber sub = n.subscribe("/camera/depth/image_raw", 1, chatterCallback);
 
-   //  image_transport::ImageTransport it(n);
+     image_transport::ImageTransport it(n);
    //  image_transport::ImageTransport it1(n2);
     
-   // // image_transport::Subscriber sub = it.subscribe("/camera/depth/image_raw", 1, imageCallback);
+    image_transport::Subscriber sub = it.subscribe("/camera/depth/image_raw", 1, imageCallback);
     
    //  //image_transport::Subscriber sub1 = it1.subscribe("/camera/depth/image_raw", 1, imageCallback1);
 
-   //  ros::Rate r(10);
+     ros::Rate r(10);
 
-   //  while(ros::ok()){
+     while(ros::ok()){
 
-   //    ros::spinOnce();
-   //    r.sleep();
-   //  }
+      ros::spinOnce();
+      r.sleep();
+    }
     return 0;
 }

@@ -206,12 +206,12 @@ int main(int argc, char *argv[]){
 
         
         ///Using Markov Random Field for making precise boundary
-        cout << "here" << endl;
+        //cout << "here" << endl;
 		Mat imageGray = imread(si,0);
 		Mat imageColor = imread(si,1);
 		MarkovRandomField mrf;
 		mrf.Mrf(imageGray, ~sp.segmentation, imageColor);
-		cout << "here" << endl;
+		//cout << "here" << endl;
 		//namedWindow("Image");
         //imshow("Image",drawingImage);
         //res(imageColor);

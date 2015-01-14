@@ -62,7 +62,7 @@ namedWindow("Image");
 	// cout<<c1<<endl;
 	// cout<<c2<<endl;	
 
-	printf("%s %s %s %s\n",s1,s2,s3,s4);
+	//printf("%s %s %s %s\n",s1,s2,s3,s4);
 	sprintf(buffer, "./lsd %s %s %s %s",s1,s2,s3,s4);
 	//sprintf(ins1, "%s",c1);
 	//sprintf(ins2, "%s",c2);

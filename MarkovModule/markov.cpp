@@ -192,7 +192,7 @@ void MarkovRandomField :: Mrf(Mat imageGray, Mat mask, Mat colorImage){
 
 	
 	Mat colorSeg = convert3channel(mask);
-	cout << "now here" << endl;
+	//cout << "now here" << endl;
 	Mat cutColor = colorImage.mul(colorSeg/255);
 	
 	

@@ -173,7 +173,7 @@ void goalCallback(const nav_msgs::OccupancyGrid &msg2)
 {
     msgb=msg2;
     flag1=1;
-    std::cout<<endl<<"Map <-";
+    //std::cout<<endl<<"Map <-";
 
 }
 
@@ -181,7 +181,7 @@ void callback( const sensor_msgs::ImageConstPtr &msg)
 {
     msga=msg;
     flag2=1;
-    std::cout<<endl<<"Img <-";
+   // std::cout<<endl<<"Img <-";
 
 }
 
@@ -189,7 +189,7 @@ void depthcallback( const sensor_msgs::ImageConstPtr &msg1)
 {
     msgc=msg1;
     flag3=1;
-    std::cout<<endl<<"Depth <-";
+   // std::cout<<endl<<"Depth <-";
 
 }
 
@@ -642,7 +642,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
    // cv::namedWindow("blank");
     //cv::imshow("blank",new_image);    
         
-    cv::imwrite(filename,new_image);
+    //cv::imwrite(filename,new_image);
     z++;
     //************** PUBLISHING ****************
     
@@ -738,16 +738,16 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     if(loop1>1)
     {   depth = ReadDepthData(240,320, msg5);
-        cout<<endl<<"depth"<<depth<<endl;
+       // cout<<endl<<"depth"<<depth<<endl;
     }
     if(depth==-1)
         depth=9999;
 
 
-    if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
-    waitKey(10);
-    if(imwrite("2.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))std::cout<<"done"<<endl;
-    waitKey(10);
+    if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))
+        waitKey(10);
+    if(imwrite("2.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))
+        waitKey(10);
     system("convert 1.jpg 1.pgm");
     system("convert 2.jpg 2.pgm");
 
@@ -766,7 +766,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     src=imread("blob.jpg");
     cvtColor( src, src_gray, CV_BGR2GRAY );
     //blur( src_gray, src_gray, Size(3,3) );
-    cout<<endl<<"blob image generated"<<endl;
+    cout<<endl<<"Blob image generated"<<endl;
 
 
     Mat canny_output;
@@ -900,10 +900,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     {
         //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
         if(src_gray.at<uchar>(mc1[i].y,mc1[i].x)==0){
-            cout<<" v: "<<src_gray.at<uchar>(mc1[i].y,mc1[i].x);
+           // cout<<" v: "<<src_gray.at<uchar>(mc1[i].y,mc1[i].x);
             circle(src,mc1[i],5,Scalar(50,50,50),-1,8,0);
             //circle( src, mc1[i], 10, Scalar(100,200,200), -1, 8, 0 );
-            cout<<endl<<"MC1 x "<<mc1[i].x<<" MC1 y "<<mc1[i].y<<endl;
+           // cout<<endl<<"MC1 x "<<mc1[i].x<<" MC1 y "<<mc1[i].y<<endl;
         }
         
     }
@@ -914,7 +914,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     {
         //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
        circle( src, mc[i], 10, Scalar(100,200,200), -1, 8, 0 );
-       cout<<endl<<"MC x "<<mc[i].x<<" MC y "<<mc[i].y<<endl;
+       //cout<<endl<<"MC x "<<mc[i].x<<" MC y "<<mc[i].y<<endl;
 
 
         

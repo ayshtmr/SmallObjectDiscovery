@@ -677,8 +677,8 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
             ROS_INFO("Waiting for the move_base action server to come up");
         }
     ROS_INFO("Sending goal");
-    ac.sendGoal(next_goal);
-    ac.waitForResult();
+    // ac.sendGoal(next_goal);
+    // ac.waitForResult();
     x_last = x_next;
     y_last = y_next;
     //cout<<" flag sleep now "<<endl;   
@@ -705,21 +705,6 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     flag3=0; 
 
 
-
-    // if(loop1>1){
-    //     if((loop1+1)%2){
-    //     moveTo(0.0,0.0,1.10);
-        
-    // }
-    // }
-
-    // if(loop1>1){
-    //     if(loop1%2){
-    //         moveTo(0.0,0.0,-2.2);
-            
-    //     }
-    // }
-
     loop1++;
 
     if(explore_var){
@@ -742,6 +727,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     }
     if(depth==-1)
         depth=9999;
+
+    Mat src_hsv;
+    src_hsv=cv_bridge::toCvShare(msg3,"bgr8")->image;
+    cvtColor(src_hsv, src_hsv, COLOR_BGR2HSV);
 
 
     if(imwrite("1.jpg", cv_bridge::toCvShare(msg3, "bgr8")->image))
@@ -786,10 +775,10 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     }
 
     //cout<<" src gray: "<<src_gray.channels();
-    for (int i = 0; i < contours.size(); ++i)
-    {
-        cout<<" "<<contourArea(contours[i])<<endl;/* code */
-    }
+    // for (int i = 0; i < contours.size(); ++i)
+    // {
+    //     cout<<" "<<contourArea(contours[i])<<endl;/* code */
+    // }
     vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
     vector<Point> mc1(contours.size()); 
@@ -825,8 +814,31 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
             if(contourArea(contours[i])>70 )
                if(src_gray.at<uchar>((min[i].y-1),min[i].x)==0)
             {
+                Vec3b hsv=src_hsv.at<Vec3b>((min[i].y-3),min[i].x);
+                int H=hsv.val[0]; //hue
+                int S=hsv.val[1]; //saturation
+                int V=hsv.val[2]; //value
+                printf("\n H: %d S: %d V: %d \n",H,S,V);
+                if (H>=0 && H<=18 && S>=94 && S<=236 && V>=190 && V<=255)
+                {
+                    cout<<"voila"<<" "<<"MULTIMETER"<<endl;
+                }
+                else if (H>=161 && H<=179 && S>=54 && S<=255 && V>=126 && V<=255)
+                {
+                    cout<<"voila"<<" "<<"SHAMPOO"<<endl;
+                }
+                else if (H>=102 && H<=125 && S>=64 && S<=248 && V>=148 && V<=255)
+                {
+                    cout<<"voila"<<" "<<"BATTERY CASE"<<endl;
+                }
+                else
+                {
+                    cout<<"voila"<<" "<<"WHEEL"<<endl;
+                }
+
+
                 mc.push_back(Point(min[i].x, min[i].y) );
-                cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
+                //cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
             }
             // else
@@ -859,7 +871,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 moveTo(0.0,0.0,-1.1);
                 break;
             case 2:
-                moveTo(0.0,0.0,1.3);
+                moveTo(0.0,0.0,1.4);
                 break;
             // case 3:
             //     moveTo(0.0,0.0,1.1);
@@ -987,8 +999,8 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double beta=atan2(goal[a].x,goal[a].y);
                double x_inner=(goal[a].x);
                double y_inner=(goal[a].y);
-               moveTo(x_inner, y_inner, beta);
-               waitKey(3000);
+               // moveTo(x_inner, y_inner, beta);
+               // waitKey(3000);
                //waitKey(10000);
             }
             else
@@ -1000,8 +1012,8 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double beta=atan2(xa*cos(tempang)-ya*sin(tempang),xa*sin(tempang)+ya*cos(tempang));
                double x_inner=xa*cos(tempang)-ya*sin(tempang);
                double y_inner=xa*sin(tempang)+ya*cos(tempang);
-               moveTo(x_inner, y_inner, beta);
-               waitKey(3000);
+               // moveTo(x_inner, y_inner, beta);
+               // waitKey(3000);
             }    
    
     }

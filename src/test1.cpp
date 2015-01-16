@@ -677,8 +677,8 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
             ROS_INFO("Waiting for the move_base action server to come up");
         }
     ROS_INFO("Sending goal");
-    // ac.sendGoal(next_goal);
-    // ac.waitForResult();
+    ac.sendGoal(next_goal);
+    ac.waitForResult();
     x_last = x_next;
     y_last = y_next;
     //cout<<" flag sleep now "<<endl;   
@@ -696,6 +696,7 @@ int loop1=0,loop2=0;
 int depth=9999;
 int rot=1;
 actionlib_msgs::GoalStatus goalStatus;
+int prn=1;
 
 
 void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
@@ -742,6 +743,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
 
     system("./run");
+
+    Mat seg;
+    seg=imread("1.jpg");
     
 
     //std::cout<<endl<<"Returned"<<endl;
@@ -805,11 +809,14 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     // }
 
     int counter=0;
+    int pp=1;
+    int xp,yp;
 
     std::vector<Point> mc;
 
     for( int i = 0; i < contours.size(); i++ )
     {
+        
         if(depth>1500)
             if(contourArea(contours[i])>70 )
                if(src_gray.at<uchar>((min[i].y-1),min[i].x)==0)
@@ -819,41 +826,53 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 int S=hsv.val[1]; //saturation
                 int V=hsv.val[2]; //value
                 printf("\n H: %d S: %d V: %d \n",H,S,V);
-                if (H>=0 && H<=18 && S>=94 && S<=236 && V>=190 && V<=255)
+                if (H>=0 && H<=18 && S>=94 && S<=236 && V>=190 && V<=255 && pp)
                 {
-                    cout<<"voila"<<" "<<"MULTIMETER"<<endl;
-                }
-                else if (H>=161 && H<=179 && S>=54 && S<=255 && V>=126 && V<=255)
-                {
-                    cout<<"voila"<<" "<<"SHAMPOO"<<endl;
-                }
-                else if (H>=102 && H<=125 && S>=64 && S<=248 && V>=148 && V<=255)
-                {
-                    cout<<"voila"<<" "<<"BATTERY CASE"<<endl;
-                }
-                else
-                {
-                    cout<<"voila"<<" "<<"WHEEL"<<endl;
-                }
 
+                    cout<<"\nMULTIMETER\n"<<endl;
+                    circle(seg,Point(min[i].x,(min[i].y-5)),50,Scalar(50,50,50));
+                    putText(seg, "MULTIMETER", Point(min[i].x,(min[i].y-25)), FONT_HERSHEY_SIMPLEX, 1, Scalar(50,50,50));
+
+                }
+                else if(H>=161 && H<=179 && S>=54 && S<=255 && V>=126 && V<=255 && pp)
+                {
+                    cout<<"\nSHAMPOO\n"<<endl;
+                    circle(seg,Point(min[i].x,(min[i].y-5)),50,Scalar(50,50,50));
+                    putText(seg, "SHAMPOO", Point(min[i].x,(min[i].y-25)), FONT_HERSHEY_SIMPLEX, 1, Scalar(50,50,50));
+
+                }
+                else if (H>=102 && H<=125 && S>=64 && S<=248 && V>=148 && V<=255 && pp)
+                {
+
+                    cout<<"\nBATTERY CASE\n"<<endl;
+                    circle(seg,Point(min[i].x,(min[i].y-5)),50,Scalar(50,50,50));
+                    putText(seg, "BATTERY CASE", Point(min[i].x,(min[i].y-25)), FONT_HERSHEY_SIMPLEX, 1, Scalar(50,50,50));
+                }
+                else 
+                {
+                    // if(pp && prn==4){
+                    cout<<"\nWHEEL\n"<<endl;
+                    circle(seg,Point(min[i].x,(min[i].y-5)),50,Scalar(50,50,50));
+                    putText(seg, "WHEEL", Point(min[i].x,(min[i].y-25)), FONT_HERSHEY_SIMPLEX, 1, Scalar(50,50,50)); 
+
+                    // }
+                }
 
                 mc.push_back(Point(min[i].x, min[i].y) );
                 //cout<<"x"<<" "<<mc[i].x<<"y"<<" "<<mc[i].y<<endl;
                 counter++;
+                // break;
+               
+                
             }
             // else
             //     cout<<"KATTA";
 
+
     }
 
-    // for (int i = 0; i < src_gray.rows; ++i)
-    // {
-    //     for (int j = 0; j < src_gray.cols; ++j)
-    //     {
-    //         cout<<" "<<int(src_gray.at<uchar>(i,j));
-    //     }
-    //     cout<<endl;
-    // }
+
+
 
     if(mc.size()==0){
 
@@ -871,24 +890,18 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                 moveTo(0.0,0.0,-1.1);
                 break;
             case 2:
-                moveTo(0.0,0.0,1.4);
+                moveTo(0.0,0.0,1.1);
                 break;
-            // case 3:
-            //     moveTo(0.0,0.0,1.1);
-            //     break;
+             case 3:
+                moveTo(-1.0,0.7,-2.0);
+                break;
 
         }
 
-        // if(rot==1)
-        //     moveTo(0.0,0.0,-1.1);
-        // else if(rot==2)
-        //     moveTo(0.0,0.0,2.2);
-        // else
-        //     moveTo(0.0,0.0,1.1);
 
 
         //moveTo(0.0,0.0,-1.1);
-        rot = (rot+1)%3;
+        rot = (rot+1)%4;
 
         if(!rot){
             toggle=0;
@@ -914,8 +927,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         if(src_gray.at<uchar>(mc1[i].y,mc1[i].x)==0){
            // cout<<" v: "<<src_gray.at<uchar>(mc1[i].y,mc1[i].x);
             circle(src,mc1[i],5,Scalar(50,50,50),-1,8,0);
-            //circle( src, mc1[i], 10, Scalar(100,200,200), -1, 8, 0 );
-           // cout<<endl<<"MC1 x "<<mc1[i].x<<" MC1 y "<<mc1[i].y<<endl;
+
         }
         
     }
@@ -936,6 +948,11 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     waitKey(100);
     imwrite("final.jpg",src);
     waitKey(100);
+    imshow("segmented",seg);
+    waitKey(100);
+    imwrite("segmented_recg.jpg",seg);
+    waitKey(100);
+
 
     // for( int i = 0; i< contours.size(); i++ )
     // {
@@ -999,9 +1016,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double beta=atan2(goal[a].x,goal[a].y);
                double x_inner=(goal[a].x);
                double y_inner=(goal[a].y);
-               // moveTo(x_inner, y_inner, beta);
-               // waitKey(3000);
-               //waitKey(10000);
+               moveTo(x_inner, y_inner, beta);
+               waitKey(3000);
+
             }
             else
             {
@@ -1012,8 +1029,8 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
                double beta=atan2(xa*cos(tempang)-ya*sin(tempang),xa*sin(tempang)+ya*cos(tempang));
                double x_inner=xa*cos(tempang)-ya*sin(tempang);
                double y_inner=xa*sin(tempang)+ya*cos(tempang);
-               // moveTo(x_inner, y_inner, beta);
-               // waitKey(3000);
+               moveTo(x_inner, y_inner, beta);
+               waitKey(3000);
             }    
    
     }

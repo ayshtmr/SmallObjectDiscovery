@@ -81,7 +81,7 @@ int kn=0;
 sensor_msgs::ImageConstPtr msga,msgc;
 nav_msgs::OccupancyGrid msgb;
 sensor_msgs::PointCloud2::ConstPtr msgd;
-//ros::Publisher nextgoal_pub;
+
 
 
 int counter;
@@ -97,9 +97,9 @@ ros::Publisher start_pub;
 double x,y,zx=1.0;
 int ox,oy;
 float resolution;
-float heightofcam=0.33;
+float heightofcam=0.33; // in meters
 double xg,yg,theta;
-int focal=530;//focal length kinect-RGB
+int focal=530; // Fixed value -- Kinect Focal Lenght
 int explore_var=0;
 float origin_x;
 float origin_y;
@@ -113,7 +113,6 @@ int b1;
 int z=0;
 
 cv::Mat occ(b1,a1,CV_8U,cv::Scalar(0));
-//sudhanshu function
 float x_nex=0;
 float y_nex=0;
 
@@ -137,7 +136,7 @@ float get_min( float dis[] ,int size  )
 }
 
 
-
+// Publishing goal coordinates
 
 void moveTo(double a, double b, double alpha)
 {
@@ -160,12 +159,13 @@ void moveTo(double a, double b, double alpha)
     goal.target_pose.pose.orientation=tf::createQuaternionMsgFromRollPitchYaw(0, 0, alpha);
     ROS_INFO("Sending goal");
     ac.sendGoal(goal);
-    ac.waitForResult();
-    //waitKey(10000);
+    ac.waitForResult(); 
     return;
     
 
 }
+
+// Storing messages globally for sequential execution
 
 int flag1=0,flag2=0,flag3=0,flag4=0;
 
@@ -239,12 +239,12 @@ int ReadDepthData(unsigned int height_pos, unsigned int width_pos, sensor_msgs::
 
 int ctr=1,toggle=1;
 
-void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
+
+void chatterCallback2 (const nav_msgs::OccupancyGrid point1 ) // Function for frontier exploration
 {
                  
-    toggle=1;           
-    //geometry_msgs::PoseStamped next_goal;       
-    //cout<<" flag 1 "<<endl;
+    toggle=1;     // Toggle set for fixed steps before going for exploration  
+
     move_base_msgs::MoveBaseGoal next_goal;
     
     int a2 = point1.info.width; 
@@ -278,7 +278,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
                     
             if(arr2d[i][j] ==0)
             {               
-                    //ROS_INFO("Received %d %d %d %d %d %d \t ",a2,b2,i,j,arr2d[i][j],count1);
+ 
             count1++;
             }                               
         } 
@@ -383,15 +383,6 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     Mat centers;        
     cv::kmeans(samples,clustercount,labels,TermCriteria(CV_TERMCRIT_ITER|CV_TERMCRIT_EPS,10000,0.0001),attempts,KMEANS_PP_CENTERS,centers);
 
-    //********************NEXT GOAL******************
-
-    /*for (int i=0;i<count;i++)
-    {       
-        int c= labels.at<int>(a[i],0);
-        int d= centers.at<int>(c,0);
-        int e= centers.at<int>(c,1);
-        cout<<"labels value " << c <<std::endl;             
-    }*/
 
     ROS_INFO("ORIGIN FROM LL CORNER %lf %lf %lf",point1.info.origin.position.x, point1.info.origin.position.y, point1.info.origin.position.z);
 
@@ -638,11 +629,7 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
     char extension[10] = ".jpg";
 
     sprintf(filename,"%s%d%s",filename,z,extension);
-    //cout<<    
-   // cv::namedWindow("blank");
-    //cv::imshow("blank",new_image);    
-        
-    //cv::imwrite(filename,new_image);
+
     z++;
     //************** PUBLISHING ****************
     
@@ -690,8 +677,6 @@ void chatterCallback2 (const nav_msgs::OccupancyGrid point1 )
 
 
 
-//int ctr=1;
-
 int loop1=0,loop2=0;
 int depth=9999;
 int rot=1;
@@ -700,34 +685,30 @@ int prn=1;
 int pr=1;
 
 
-
+// Parent Function
 
 void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid msg4, const sensor_msgs::ImageConstPtr& msg5)
 {  
     namedWindow("segmented",WINDOW_NORMAL);
 
-    flag2=0;
+    flag2=0; //reset flags 
     flag3=0; 
 
 
     loop1++;
 
-    if(explore_var){
+    if(explore_var){ // Frontier exploration called
 
 
         explore_var=0;
-        toggle=1;
-        
-        chatterCallback2(msg4);  
-        // moveTo(0.0,0.0,-2.2);  
+        toggle=1;      
+        chatterCallback2(msg4);   
         return;
     }
-    //  loop2++;
-    // if(loop2>0)
-    //     waitKey(20000);
+
 
     if(loop1>1)
-    {   depth = ReadDepthData(240,320, msg5);
+    {   depth = ReadDepthData(240,320, msg5); // Calculate depth of objects in front of turtlebot using Depthstream
        // cout<<endl<<"depth"<<depth<<endl;
     }
     if(depth==-1)
@@ -782,11 +763,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         return;
     }
 
-    //cout<<" src gray: "<<src_gray.channels();
-    // for (int i = 0; i < contours.size(); ++i)
-    // {
-    //     cout<<" "<<contourArea(contours[i])<<endl;/* code */
-    // }
+
     vector<Moments> mu(contours.size() );
     vector <Point> min(contours.size());
     vector<Point> mc1(contours.size()); 
@@ -807,10 +784,6 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     }
 
 
-    // for (int i = 0; i < contours.size(); ++i)
-    // {
-    //     mc1.push_back(Point(mu[i].m10/mu[i].m00,mu[i].m01/mu[i].m00));
-    // }
 
     int counter=0;
     int pp=1;
@@ -837,7 +810,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
 
 
-    if(mc.size()==0){
+    if(mc.size()==0){ //no objects found on the floor
 
         //explore_var=1;
         cout<<endl<<"Returning as no object found";
@@ -848,34 +821,19 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
         }
 
-        switch (rot) {
+        switch (rot) { //Perform some fixed rotations to check for objects before going for frontier exploration
             case 1:
-                moveTo(0.0,0.0,-1.1);
+                moveTo(0.0,0.0,-1.0); //rotate 60 deg clockwise
                 break;
             case 2:
-                moveTo(0.0,1.0,1.2);
+                moveTo(0.0,1.0,2.0); //rotate 120 deg anticlockwise
                 break;
-            case 3:
-                moveTo(-0.8,1.5,-1.2);
-                break;
-            case 4:
-                moveTo(-0.5,0.5,-0.3);
-                break;
-            case 5:
-                moveTo(0.0,0.0,0.2);
-                break;
-            case 6:
-                moveTo(0.0,0.0,-1.1);
-                break;
-
 
 
         }
 
 
-
-        //moveTo(0.0,0.0,-1.1);
-        rot = (rot+1)%7;
+        rot = (rot+1)%3;
 
         if(!rot){
             toggle=0;
@@ -885,10 +843,9 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         return;
 
         
-        if(depth<1500){
-            cout<<endl<<"Either wall in front or yet to get good depth data:: depth = "<<depth;
+        if(depth<1500){ // 1500 mm
+            cout<<endl<<"Wall/obstacle in front : Aborting and going for exploration:: depth = "<<depth;
             return;
-            //moveTo(0.00,0.00,0.8);
         }
         
 
@@ -907,9 +864,6 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     }
 
 
-
-
-    //Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
     for (int i = 0; i < mc.size(); i++)
     {
         //Scalar color = Scalar( rng.uniform(0, 255), rng.uniform(0,255), rng.uniform(0,255) );
@@ -917,44 +871,15 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
        //cout<<endl<<"MC x "<<mc[i].x<<" MC y "<<mc[i].y<<endl;        
     }
 
-    // if(pr==1){
-    //     putText(seg, "Shampoo Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(50,50,50)); 
-    //     circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    // }
-    // if(pr==2){
-    //     putText(seg, "Multimeter Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(50,50,50)); 
-    //     circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    // }
-    if(pr==1){
-        putText(seg, "Multimeter Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(50,50,50)); 
-        //circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    }
-    if(pr==2){
-        putText(seg, "Duster Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(50,50,50)); 
-        //circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    }
-    if(pr==3){
-        putText(seg, "Shampoo Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(50,50,50)); 
-        //circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    }
-    if(pr==4){
-        putText(seg, "Shampoo Detected", Point(400,400), FONT_HERSHEY_SIMPLEX, 0.9, Scalar(50,50,50)); 
-        //circle( src, mc[0], 10, Scalar(50,200,200), 1, 8, 0 );
-    }
 
-     pr++;
-
-
-
-
-    // imshow("final",src);
-    // waitKey(100);
-    // imwrite("final.jpg",src);
-    // waitKey(100);
-    imshow("segmented",seg);
+    imshow("final",src);
     waitKey(100);
-    imwrite("segmented_recg.jpg",seg);
+    imwrite("final.jpg",src);
     waitKey(100);
+    // imshow("segmented",seg);
+    // waitKey(100);
+    // imwrite("segmented_recg.jpg",seg);
+    // waitKey(100);
 
 
     // for( int i = 0; i< contours.size(); i++ )
@@ -970,6 +895,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
     // imwrite( "Contours.jpg", drawing );
     // waitKey(100);
 
+    // Sending goals if objects detected on floor
     vector<Point2f>goal;
     for(int k=0;k<counter;k++){
         cout<<endl<<mc[k].x<<" "<<mc[k].y;
@@ -978,14 +904,14 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
 
     int counter1=0;
 
-    for (int k=0;k<counter;k++)
-    {
+    for (int k=0;k<counter;k++) // IMPORTANT ** Calibration required ** Pinhole formula used to estimate object distance 
+    {                           // from kinect (turtlebot) based on Focal lenght = 530mm and Height of camera from ground = 0.33 m
         float obj_height=mc[k].y-240;
         float z1=focal*heightofcam/obj_height;
-        z1 = z1*z1*z1*0.4025 - z1*z1*0.7903 + z1*2.4968 - 0.3587;
+        z1 = z1*z1*z1*0.4025 - z1*z1*0.7903 + z1*2.4968 - 0.3587; // Function for depth estimation * Compute your own
         float x1=(320-mc[k].x)*z1/focal;
 
-        if(mc[k].y!=0){
+        if(mc[k].y!=0){ // eliminating redundant cordinates
 
             if(k==0){
 

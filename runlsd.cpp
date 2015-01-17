@@ -34,7 +34,7 @@ namedWindow("Image");
 	sresult<<i;
 	sconvert<<i;
 
-    string s = "/home/ayush/fuerte_workspace/sandbox/abc/" + ss.str() + ".pgm";
+    string s = "./" + ss.str() + ".pgm";
     //string sr = "mogrify -trim -resize 640x480 /home/ayush/floor_seg/in_data/"+ sresult.str() + ".jpg";
     //string sc = "gs -sDEVICE=jpeg -dJPEGQ=100 -dNOPAUSE -dBATCH -dSAFER -r300 -sOutputFile=/home/ayush/floor_seg/in_data/" + sresult.str() + ".jpg " + "floor.result.eps";
 
@@ -50,7 +50,7 @@ namedWindow("Image");
 	
 	
 
-    string st = "/home/ayush/fuerte_workspace/sandbox/abc/" + sresult.str() + ".txt";
+    string st = "./" + sresult.str() + ".txt";
     char *s4 = new char[st.length() + 1];
     strcpy(s4, st.c_str());
 	//char s3[20] = {s};

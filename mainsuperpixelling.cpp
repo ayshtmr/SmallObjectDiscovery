@@ -108,8 +108,8 @@ int main(int argc, char *argv[]){
     for(int i=1;i<3;i++){
 		stringstream ss;	
 		ss<<i;
-        string st = "/home/ayush/fuerte_workspace/sandbox/abc/" + ss.str() + ".txt";
-        string si = "/home/ayush/fuerte_workspace/sandbox/abc/" + ss.str() + ".jpg";
+        string st = "./" + ss.str() + ".txt";
+        string si = "./" + ss.str() + ".jpg";
 
     	char *s = new char[st.length() + 1];
     		strcpy(s, st.c_str());
@@ -227,7 +227,7 @@ int main(int argc, char *argv[]){
 		
 		
 		
-        string ssave = "/home/ayush/fuerte_workspace/sandbox/abc/" + ss.str()+ ".jpg";
+        string ssave = "./" + ss.str()+ ".jpg";
 		//cout<<ssave<<endl;
 		imwrite(ssave,imageColor);
 		

@@ -161,32 +161,6 @@ clean-test-results/fast:
 .PHONY : clean-test-results/fast
 
 #=============================================================================
-# Target rules for targets named img
-
-# Build rule for target.
-img: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 img
-.PHONY : img
-
-# fast build rule for target.
-img/fast:
-	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/build
-.PHONY : img/fast
-
-#=============================================================================
-# Target rules for targets named pcl
-
-# Build rule for target.
-pcl: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pcl
-.PHONY : pcl
-
-# fast build rule for target.
-pcl/fast:
-	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/build
-.PHONY : pcl/fast
-
-#=============================================================================
 # Target rules for targets named rosbuild_precompile
 
 # Build rule for target.
@@ -252,19 +226,6 @@ rospack_gensrv/fast:
 .PHONY : rospack_gensrv/fast
 
 #=============================================================================
-# Target rules for targets named seg1
-
-# Build rule for target.
-seg1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 seg1
-.PHONY : seg1
-
-# fast build rule for target.
-seg1/fast:
-	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/build
-.PHONY : seg1/fast
-
-#=============================================================================
 # Target rules for targets named test
 
 # Build rule for target.
@@ -317,30 +278,30 @@ test-results-run/fast:
 .PHONY : test-results-run/fast
 
 #=============================================================================
-# Target rules for targets named test1
+# Target rules for targets named test2
 
 # Build rule for target.
-test1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test1
-.PHONY : test1
+test2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test2
+.PHONY : test2
 
 # fast build rule for target.
-test1/fast:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/build
-.PHONY : test1/fast
+test2/fast:
+	$(MAKE) -f CMakeFiles/test2.dir/build.make CMakeFiles/test2.dir/build
+.PHONY : test2/fast
 
 #=============================================================================
-# Target rules for targets named testing
+# Target rules for targets named test3
 
 # Build rule for target.
-testing: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 testing
-.PHONY : testing
+test3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test3
+.PHONY : test3
 
 # fast build rule for target.
-testing/fast:
-	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/build
-.PHONY : testing/fast
+test3/fast:
+	$(MAKE) -f CMakeFiles/test3.dir/build.make CMakeFiles/test3.dir/build
+.PHONY : test3/fast
 
 #=============================================================================
 # Target rules for targets named tests
@@ -356,79 +317,34 @@ tests/fast:
 .PHONY : tests/fast
 
 # target to build an object file
-src/img.o:
-	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.o
-.PHONY : src/img.o
+src/test2.o:
+	$(MAKE) -f CMakeFiles/test2.dir/build.make CMakeFiles/test2.dir/src/test2.o
+.PHONY : src/test2.o
 
 # target to preprocess a source file
-src/img.i:
-	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.i
-.PHONY : src/img.i
+src/test2.i:
+	$(MAKE) -f CMakeFiles/test2.dir/build.make CMakeFiles/test2.dir/src/test2.i
+.PHONY : src/test2.i
 
 # target to generate assembly for a file
-src/img.s:
-	$(MAKE) -f CMakeFiles/img.dir/build.make CMakeFiles/img.dir/src/img.s
-.PHONY : src/img.s
+src/test2.s:
+	$(MAKE) -f CMakeFiles/test2.dir/build.make CMakeFiles/test2.dir/src/test2.s
+.PHONY : src/test2.s
 
 # target to build an object file
-src/pcl.o:
-	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.o
-.PHONY : src/pcl.o
+src/test3.o:
+	$(MAKE) -f CMakeFiles/test3.dir/build.make CMakeFiles/test3.dir/src/test3.o
+.PHONY : src/test3.o
 
 # target to preprocess a source file
-src/pcl.i:
-	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.i
-.PHONY : src/pcl.i
+src/test3.i:
+	$(MAKE) -f CMakeFiles/test3.dir/build.make CMakeFiles/test3.dir/src/test3.i
+.PHONY : src/test3.i
 
 # target to generate assembly for a file
-src/pcl.s:
-	$(MAKE) -f CMakeFiles/pcl.dir/build.make CMakeFiles/pcl.dir/src/pcl.s
-.PHONY : src/pcl.s
-
-# target to build an object file
-src/seg.o:
-	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.o
-.PHONY : src/seg.o
-
-# target to preprocess a source file
-src/seg.i:
-	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.i
-.PHONY : src/seg.i
-
-# target to generate assembly for a file
-src/seg.s:
-	$(MAKE) -f CMakeFiles/seg1.dir/build.make CMakeFiles/seg1.dir/src/seg.s
-.PHONY : src/seg.s
-
-# target to build an object file
-src/test1.o:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.o
-.PHONY : src/test1.o
-
-# target to preprocess a source file
-src/test1.i:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.i
-.PHONY : src/test1.i
-
-# target to generate assembly for a file
-src/test1.s:
-	$(MAKE) -f CMakeFiles/test1.dir/build.make CMakeFiles/test1.dir/src/test1.s
-.PHONY : src/test1.s
-
-# target to build an object file
-src/testing.o:
-	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.o
-.PHONY : src/testing.o
-
-# target to preprocess a source file
-src/testing.i:
-	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.i
-.PHONY : src/testing.i
-
-# target to generate assembly for a file
-src/testing.s:
-	$(MAKE) -f CMakeFiles/testing.dir/build.make CMakeFiles/testing.dir/src/testing.s
-.PHONY : src/testing.s
+src/test3.s:
+	$(MAKE) -f CMakeFiles/test3.dir/build.make CMakeFiles/test3.dir/src/test3.s
+.PHONY : src/test3.s
 
 # Help Target
 help:
@@ -442,37 +358,25 @@ help:
 	@echo "... ROSBUILD_gensrv_lisp"
 	@echo "... clean-test-results"
 	@echo "... edit_cache"
-	@echo "... img"
-	@echo "... pcl"
 	@echo "... rebuild_cache"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_genmsg"
 	@echo "... rospack_genmsg_libexe"
 	@echo "... rospack_gensrv"
-	@echo "... seg1"
 	@echo "... test"
 	@echo "... test-future"
 	@echo "... test-results"
 	@echo "... test-results-run"
-	@echo "... test1"
-	@echo "... testing"
+	@echo "... test2"
+	@echo "... test3"
 	@echo "... tests"
-	@echo "... src/img.o"
-	@echo "... src/img.i"
-	@echo "... src/img.s"
-	@echo "... src/pcl.o"
-	@echo "... src/pcl.i"
-	@echo "... src/pcl.s"
-	@echo "... src/seg.o"
-	@echo "... src/seg.i"
-	@echo "... src/seg.s"
-	@echo "... src/test1.o"
-	@echo "... src/test1.i"
-	@echo "... src/test1.s"
-	@echo "... src/testing.o"
-	@echo "... src/testing.i"
-	@echo "... src/testing.s"
+	@echo "... src/test2.o"
+	@echo "... src/test2.i"
+	@echo "... src/test2.s"
+	@echo "... src/test3.o"
+	@echo "... src/test3.i"
+	@echo "... src/test3.s"
 .PHONY : help
 
 

@@ -910,6 +910,7 @@ void callit(const sensor_msgs::ImageConstPtr msg3, const nav_msgs::OccupancyGrid
         float z1=focal*heightofcam/obj_height;
         z1 = z1*z1*z1*0.4025 - z1*z1*0.7903 + z1*2.4968 - 0.3587; // Function for depth estimation * Compute your own
         float x1=(320-mc[k].x)*z1/focal;
+        // #todo - IMPORTANT ** Calibration required **
 
         if(mc[k].y!=0){ // eliminating redundant cordinates
 
